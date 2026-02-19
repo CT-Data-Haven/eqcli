@@ -4,17 +4,18 @@ version = "0.1.0"
 description = "In-house tools for equity reports at DataHaven"
 readme = "README.md"
 authors = [
-    { name = "camille-s", email = "camille.seaberry@gmail.com" }
+    { name = "camille-s", email = "camille@ctdatahaven.org" }
 ]
 requires-python = ">=3.13"
 dependencies = [
     "click>=8.3.1",
     "pandas>=3.0.0",
     "pyyaml>=6.0.3",
+    "tabulate>=0.9.0",
 ]
 
 [project.scripts]
-eqcli = "eqcli:main"
+eqcli = "eqcli:cli.cli"
 
 [build-system]
 requires = ["uv_build>=0.10.2,<0.11.0"]

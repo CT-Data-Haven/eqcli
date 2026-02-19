@@ -8,8 +8,7 @@ import uuid
 
 import logging
 
-logger = logging.getLogger("batch")
-logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 class Batch:
@@ -27,11 +26,11 @@ class Batch:
         outdir: Path | str,
         batchdir: str,
         version: str | None,
-        clean: bool = False,
-        clean_glob: str | None = None,
         print_quarto: bool = False,
         print_snakemake: bool = False,
         comment: str | None = "#",
+        mark_success: str = "+",
+        mark_fail: str = "x",
     ):
         if name is None:
             self.name = f"batch-{uuid.uuid4()}"
@@ -48,13 +47,10 @@ class Batch:
         self.failures = 0
         self.successes = 0
         self.logs: list[str] = []
+        self.mark_success = mark_success
+        self.mark_fail = mark_fail
         # self.file_pattern = file_pattern
         # self.files: list[Path] = []
-
-        # setup outdir
-        self._setup_dir()
-        if clean and clean_glob is not None:
-            self._clean_dir(clean_glob)
 
         # ids: either list of names, or file to read names from
         if isinstance(ids, list):
@@ -64,33 +60,6 @@ class Batch:
 
         self.files = self._create_file_names(file_pattern, to_snakecase=True, **config)
         self.docker = self._prep_container()
-        logger.debug(self.docker)
-
-    ## SETUP ----
-    def _setup_dir(self) -> None:
-        """Give a directory permissions necessary for docker & GitHub Actions runner to have write access, creating the directory if needed"""
-        if not self.outdir.exists():
-            click.echo(f"Creating directory {self.outdir}")
-            self.outdir.mkdir(parents=True, exist_ok=True)
-        self.outdir.chmod(mode=0o777)
-        return None
-
-    def _clean_dir(self, glob: str) -> None:
-        """Delete files in a directory based on a glob
-
-        Parameters
-        ----------
-        glob : str
-            Glob pattern to match files for deletion
-        """
-        files = list(self.outdir.glob(glob))
-        if len(files) == 0:
-            click.echo(f"No files in {self.outdir} to remove")
-        else:
-            click.echo(f"Removing {len(files)} files from {self.outdir}")
-            for file in files:
-                file.unlink()
-        return None
 
     ## FILES ----
     def _create_file_names(
@@ -105,11 +74,12 @@ class Batch:
         # return [Path(self.outdir) / fn for fn in filenames]
         return [Path(fn) for fn in filenames]
 
-    def _rename_tagged(self, orig: Path, tag: str, sep: str = "-") -> Path | None:
+    def _rename_tagged(self, orig: Path, sep: str) -> Path | None:
         """Rename a file with a tag appended to its base"""
-        orig = Path(orig)
+        # orig = Path(orig)
+        orig = self.outdir / orig
         if orig.exists():
-            tagged = orig.with_stem(f"{orig.stem}{sep}{tag}")
+            tagged = orig.with_stem(f"{orig.stem}{sep}{self.version}")
             orig.rename(tagged)
             return tagged
         else:
@@ -119,7 +89,7 @@ class Batch:
     def tag_files(self, sep: str = "-") -> None:
         """Update self.files with tags, given the batch is versioned"""
         if self.version is not None:
-            files = [self._rename_tagged(f, self.version, sep) for f in self.files]
+            files = [self._rename_tagged(f, sep) for f in self.files]
             self.files = [Path(f) for f in files if f is not None]
 
     ## LOGGING ----
@@ -132,9 +102,9 @@ class Batch:
                 "^(.) .+ (written|failed)", log
             )  # returns list of tuple
             if bullet:
-                if bullet[0][0] == "+":
+                if bullet[0][0] == self.mark_success:
                     return True
-                elif bullet[0][0] == "x":
+                elif bullet[0][0] == self.mark_fail:
                     return False
                 else:
                     return None
@@ -143,16 +113,13 @@ class Batch:
 
     def _label_successes(self, log_success: bool | None) -> str | None:
         """Format running count of successes so far"""
-        # if info is not None and "successes" in info.keys():
-        #     if info["successes"] is not None:
-        #         return f"{info['successes']:>3} / {info['tries']:>3} succeeding"
         if log_success is not None:
             return f"{self.successes:>3} / {self.tries:>3} succeeding"
 
     ## DOCKER ----
 
     def _prep_container(self) -> DockerStream:
-        # container_files = [Path(self.batchdir) / fn for fn in self.files]
+        """Create DockerStream instance tied to this batch"""
         container_name = f"{self.name}-docker"
         return DockerStream(
             name=container_name,
@@ -165,6 +132,7 @@ class Batch:
         )
 
     def run_docker(self) -> None:
+        """Stream output of docker container running from bash script in subprocess. Stores logs and container results."""
         with self.docker.stream_docker() as logs:
             printout: list[str] = []
             for log in logs:

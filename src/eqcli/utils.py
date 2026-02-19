@@ -1,5 +1,6 @@
 ### STRING UTILITIES--------------------
 ######################################
+from datetime import datetime
 import tomllib
 import re
 
@@ -216,45 +217,177 @@ def create_file_names(
     return [template.format(**kwargs, id=id) for id in ids_out]
 
 
+def file_timestamp(path: Path | str, fmt: str = "%Y-%m-%d %H:%M:%S") -> str:
+    """Get file's modification time as a formatted timestamp
 
+    Parameters
+    ----------
+    path : Path | str
+        Path to file
+    fmt  : str
+        Datetime format compatable with `strftime`, defaults "%Y-%m-%d %H:%M:%S"
+
+    Returns
+    -------
+    str
+        Formatted timestamp
+    """
+    path = Path(path)
+    mod = path.stat().st_mtime
+    timestamp = datetime.fromtimestamp(mod)
+    fmttd = timestamp.strftime(fmt)
+    return fmttd
+
+
+def parse_file_pattern(filename: Path | str, file_pattern: str):
+    """Convert format string used for generating file names into regex to extract IDs"""
+    filename = str(filename)
+    # replace {id} with regex for named matching group
+    # e.g. "{id}_equity_{doc_yr}.{ext}" -> "(?P<id>.+)_equity_{doc_yr}.{ext}"
+    patt1 = file_pattern.replace("{id}", "(?P<id>.+)")
+    # replace brackets with wildcards
+    patt2 = re.sub(r"\{.*?\}", ".+", patt1)
+    id = re.compile(patt2).findall(filename)
+    return id[0]
+
+
+def id_from_file(path: Path | str, patt: str | re.Pattern) -> str | None:
+    """Extract a report ID (location, etc) from its filename given a regex pattern
+
+    Parameters
+    ----------
+    path : Path | str
+        Path to file
+    patt : str | re.Pattern
+        Pattern or string that can be compiled to re pattern. Should probably contain a group to match.
+
+    Returns
+    -------
+    str | None
+        If the pattern matches, the first match is returned; otherwise, None
+
+    Examples
+    --------
+    >>> id_from_file("to_distro/capitol_region_cog_equity_2026.pdf", "(\\w+)_equity")
+    'capitol_region_cog'
+    """
+    fn = Path(path).name
+    if isinstance(patt, str):
+        patt = re.compile(patt)
+    id = patt.findall(fn)
+    if id:
+        return id[0]
+    else:
+        return None
 
 
 ### METADATA----------------------------
 ######################################
 
+
 def read_version(file: Path | str, patt: str | None = None) -> str:
-        """Extract project version from a file based on a pattern
+    """Extract project version from a file based on a pattern
 
-        Parameters
-        ----------
-        file : Path | str, optional
-            Path to a file containing project version
-        patt : str | None, optional
-            Pattern to compile to regex in order to extract version. If None, will supply a pattern that matches either an R description file or a common pyproject.toml pattern.
+    Parameters
+    ----------
+    file : Path | str, optional
+        Path to a file containing project version
+    patt : str | None, optional
+        Pattern to compile to regex in order to extract version. If None, will supply a pattern that matches either an R description file or a common pyproject.toml pattern.
 
-        Returns
-        -------
-        str
-            First match found, in "v$version" format.
-        """
-        # if no pattern supplied, use appropriate for file type
-        file = Path(file)
-        if file.stem == "DESCRIPTION":
-            txt = file.read_text()
-            if patt is None:
-                patt = r"(?<=Version:\s)([0-9a-z\-\.]+)(?=\n)"
-            version = re.compile(patt).findall(txt)
+    Returns
+    -------
+    str
+        First match found, in "v$version" format.
+    """
+    # if no pattern supplied, use appropriate for file type
+    file = Path(file)
+    if file.stem == "DESCRIPTION":
+        txt = file.read_text()
+        if patt is None:
+            patt = r"(?<=Version:\s)([0-9a-z\-\.]+)(?=\n)"
+        version = re.compile(patt).findall(txt)
+    else:
+        version = value_from_toml(file, key="version")
+    if version:
+        return f"v{version[0]}"
+    else:
+        raise ValueError("pattern 'patt' not found for project version")
+
+
+def read_proj_name(file: Path | str, patt: str | None = None) -> str:
+    file = Path(file)
+    if file.stem == "DESCRIPTION":
+        txt = file.read_text()
+        if patt is None:
+            patt = r"(?<=Package:\s)(.+)(?=\n)"
+        name = re.compile(patt).findall(txt)
+    else:
+        name = value_from_toml(file, key="name", table="project")
+    if name:
+        return name[0]
+    else:
+        raise ValueError("pattern 'patt' not found for project name")
+
+
+def check_version(
+    version: str | None,
+    version_file: Path | str | None,
+    version_patt: str | None,
+    is_required: bool = True,
+) -> str | None:
+    """Read and/or verify project version
+
+    Parameters
+    ----------
+    version : str | None
+        Version, such as "0.2.1"
+    version_file : Path | str | None
+        File containing a version, such as "pyproject.toml" or "DESCRIPTION"
+    version_patt : str | None
+        Regex pattern to use to find version tag
+    is_required : bool
+        If true (default), must resolve to some version. Otherwise, not finding a version and returning None is allowed
+
+    Returns
+    -------
+    str | None
+        The version, either as supplied or as read from a file. `version` argument takes precedence if both it and `version_file` are given. If `is_required` is false and no version is found, will return `None`.
+
+    Raises
+    ------
+    ValueError
+        Error if neither `version` nor `version_file` is given, and `is_required=True`.
+    """
+    if version is None:
+        if version_file is None:
+            if is_required:
+                raise ValueError("must supply a version or a version file")
+            else:
+                return None
         else:
-            version = version_from_toml(file)
-        if version:
-            return f"v{version[0]}"
-        else:
-            raise ValueError("pattern 'patt' not found")
+            if is_required:
+                return read_version(version_file, version_patt)
+            else:
+                try:
+                    return read_version(version_file, version_patt)
+                except ValueError:
+                    return None
+    else:
+        return version
 
-def version_from_toml(file: Path | str):
-    with open(file, 'rb') as f:
+
+def value_from_toml(file: Path | str, key: str, table: str | None = None):
+    with open(file, "rb") as f:
         config = tomllib.load(f)
-    # find nested dict with version key
-    return [v['version'] for k, v in config.items() if 'version' in v.keys()]
+    if table is None:
+        return [v[key] for k, v in config.items() if key in v.keys()]
+    else:
+        return [config[table][key]]
 
 
+# def version_from_toml(file: Path | str):
+#     with open(file, "rb") as f:
+#         config = tomllib.load(f)
+#     # find nested dict with version key
+#     return [v["version"] for k, v in config.items() if "version" in v.keys()]
