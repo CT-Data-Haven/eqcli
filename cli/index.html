@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://ct-data-haven.github.io/eqcli/cli/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>CLI reference - eqcli</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CLI reference";
+        var mkdocs_page_input_path = "cli.md";
+        var mkdocs_page_url = "/eqcli/cli/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> eqcli
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">eqcli</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">CLI reference</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../utilities/">Utilities</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Classes</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../classes/batch/">Batch</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../classes/dockerstream/">DockerStream</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../classes/project/">Project</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../classes/release/">Release</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">eqcli</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">CLI reference</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ct-data-haven/eqcli/edit/master/docs/cli.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="cli-reference">CLI reference</h1>
+<h1 id="eqcli">eqcli</h1>
+<p>Tools for creating equity reports in docker and writing release notes</p>
+<p><strong>Usage:</strong></p>
+<pre><code class="language-text">eqcli [OPTIONS] COMMAND [ARGS]...
+</code></pre>
+<p><strong>Options:</strong></p>
+<pre><code class="language-text">  --help  Show this message and exit.
+</code></pre>
+<h2 id="batch-write">batch-write</h2>
+<p>Write one or more batches of reports using snakemake running in a docker container. This creates a <a class="autorefs autorefs-internal" href="../classes/project/#eqcli.project.Project"><code>Project</code></a> instance which, in turn, creates <a class="autorefs autorefs-internal" href="../classes/batch/#eqcli.batch.Batch"><code>Batch</code></a> objects for each option supplied to <code>--locfile</code> and/or <code>--locurl</code>. Then reports are generated for each batch inside the docker container and written out to <code>outdir</code>. The <code>--print-quarto</code> and <code>--print-snakemake</code> flags will provide some feedback as the containers run, but the <code>Batch</code> objects will try to parse logs from their containers and print running counts of successful and failed attempts to write reports.</p>
+<h2 id="todo">Todo</h2>
+<ul>
+<li>Reimplement progress bar for interactive use</li>
+<li>Develop more robust log parsing</li>
+</ul>
+<p><strong>Usage:</strong></p>
+<pre><code class="language-text">eqcli batch-write [OPTIONS]
+</code></pre>
+<p><strong>Options:</strong></p>
+<pre><code class="language-text">  -i, --image TEXT         Name or URL of docker image  [default: ghcr.io/ct-
+                           data-haven/regions:latest]
+  -c, --config-file FILE   Path to snakemake config yaml file  [default:
+                           config.yml]
+  -t, --file-pattern TEXT  Template literal string to create filenames; can
+                           use values from config-file  [default:
+                           {id}_equity_{doc_yr}.pdf]
+  -f, --locfile FILE       Path to file of location names, one name per line.
+                           Can be given multiple times for multiple files.
+  -u, --locurl URL         URL to file of location names, one name per line.
+                           Can be given multiple times for multiple files.
+  -X, --clean              Clean output directory before writing new files
+  -G, --clean-glob TEXT    Glob to use for deleting files
+  -l, --print-logs         Print logs from docker run
+  -q, --print-quarto       Print logs from quarto
+  -s, --print-snakemake    Print logs from snakemake
+  -r, --tag-rename         Rename files based on version tag
+  -p, --project-name TEXT  Name of project
+  -o, --outdir DIRECTORY   Path to output directory on the host machine
+                           [default: to_distro]
+  -v, --version TEXT       Version if tagging; takes precedence over version-
+                           file
+  -V, --version-file FILE  Path to version file if tagging  [default:
+                           pyproject.toml]
+  -n, --dry-run            Dry run: print expected operations but do nothing
+  --help                   Show this message and exit.
+</code></pre>
+<h2 id="release-notes">release-notes</h2>
+<p>Write notes as a markdown table to serve as release notes. The table will include each report's ID as parsed based on <code>id_regex</code>, the path to that file, and the last time modified. This can then be uploaded as release notes on GitHub, either as is or after amending the markdown file manually.</p>
+<p><strong>Usage:</strong></p>
+<pre><code class="language-text">eqcli release-notes [OPTIONS]
+</code></pre>
+<p><strong>Options:</strong></p>
+<pre><code class="language-text">  -I, --id-regex TEXT      Regex pattern to extract IDs from filenames
+                           [default: (\w+)_equity]
+  -m, --md-out FILE        Path to write out notes to markdown  [default:
+                           release-notes.md]
+  --xwalk-path FILE        Path to crosswalk file for grouping reports, such
+                           as between towns and COGs
+  --xwalk-join-col TEXT    Column name to join IDs to crosswalk
+  --xwalk-group-col TEXT   Column name to group by in the crosswalk
+  -q, --quiet              Quiet output
+  -p, --project-name TEXT  Name of project
+  -o, --outdir DIRECTORY   Path to output directory on the host machine
+                           [default: to_distro]
+  -v, --version TEXT       Version if tagging; takes precedence over version-
+                           file
+  -V, --version-file FILE  Path to version file if tagging  [default:
+                           pyproject.toml]
+  -n, --dry-run            Dry run: print expected operations but do nothing
+  --help                   Show this message and exit.
+</code></pre>
+<h2 id="zip-release">zip-release</h2>
+<p>Zip all the files from <code>outdir</code>, optionally matching by a glob string. If no glob is given, will match all PDF files in the output directory. Use a crosswalk and the <code>--zip-by-group</code> flag in order to bundle files into some group before zipping.</p>
+<p><strong>Usage:</strong></p>
+<pre><code class="language-text">eqcli zip-release [OPTIONS]
+</code></pre>
+<p><strong>Options:</strong></p>
+<pre><code class="language-text">  -I, --id-regex TEXT      Regex pattern to extract IDs from filenames
+                           [default: (\w+)_equity]
+  -m, --md-out FILE        Path to write out notes to markdown  [default:
+                           release-notes.md]
+  --xwalk-path FILE        Path to crosswalk file for grouping reports, such
+                           as between towns and COGs
+  --xwalk-join-col TEXT    Column name to join IDs to crosswalk
+  --xwalk-group-col TEXT   Column name to group by in the crosswalk
+  -q, --quiet              Quiet output
+  -p, --project-name TEXT  Name of project
+  -o, --outdir DIRECTORY   Path to output directory on the host machine
+                           [default: to_distro]
+  -v, --version TEXT       Version if tagging; takes precedence over version-
+                           file
+  -V, --version-file FILE  Path to version file if tagging  [default:
+                           pyproject.toml]
+  -n, --dry-run            Dry run: print expected operations but do nothing
+  -g, --glob TEXT          Glob to select files for zipping  [default: *.pdf]
+  --zip-by-group           Bundle files by grouping column to zip
+  -z, --zipdir DIRECTORY   Path to directory for zipped files  [default: .]
+  --help                   Show this message and exit.
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="eqcli"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../utilities/" class="btn btn-neutral float-right" title="Utilities">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ct-data-haven/eqcli" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../utilities/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

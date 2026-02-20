@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://ct-data-haven.github.io/eqcli/classes/batch/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Batch - eqcli</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Batch";
+        var mkdocs_page_input_path = "classes/batch.md";
+        var mkdocs_page_url = "/eqcli/classes/batch/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> eqcli
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">eqcli</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../cli/">CLI reference</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../utilities/">Utilities</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Classes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Batch</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.batch.Batch">Batch</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.batch.Batch.run_docker">run_docker</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.batch.Batch.tag_files">tag_files</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dockerstream/">DockerStream</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../project/">Project</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../release/">Release</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">eqcli</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Classes</li>
+      <li class="breadcrumb-item active">Batch</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ct-data-haven/eqcli/edit/master/docs/classes/batch.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="batch"><code>Batch</code></h1>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<a id="eqcli.batch.Batch"></a>
+    <div class="doc doc-contents first">
+
+
+
+        <p>Class to manage a set of files to generate from a single list of locations or other IDs. A <code>Batch</code> can be one of several created by a <code>Project</code>, each representing an independent set of files and tracking its own count of successes and failures. Instances of this class are intended to be created by a <code>Project</code> rather than called directly.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>name</code></b>
+                  (<code><span title="str">str</span> | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>Name of this batch. If None, the batch is named based on the <code>Project</code> with a batch number attached.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>ids</code></b>
+                  (<code><span title="pathlib.Path">Path</span> | <span title="str">str</span> | <span title="list">list</span>[<span title="str">str</span>]</code>)
+              –
+              <div class="doc-md-description">
+                <p>Either a path to a file of IDs (i.e. location names) to be read in, or a list of IDs directly. If a file, it should be formatted with a single ID per line.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>file_pattern</code></b>
+                  (<code><span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>String to be used with <code>format()</code> to create desired report filenames. Include <code>"{id}"</code> as a placeholder for report IDs such as location names, such as <code>"{id}_equity_{year}.pdf"</code>, where <code>year</code> is a keyed value in the config file.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>image</code></b>
+                  (<code><span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Name or URL of docker image, already built</p>
+              </div>
+            </li>
+            <li>
+              <b><code>config</code></b>
+                  (<code><span title="dict">dict</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Snakemake config dictionary, as read from config.yml</p>
+              </div>
+            </li>
+            <li>
+              <b><code>outdir</code></b>
+                  (<code><span title="pathlib.Path">Path</span> | <span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Directory for final generated reports</p>
+              </div>
+            </li>
+            <li>
+              <b><code>batchdir</code></b>
+                  (<code><span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Name of batch working directory</p>
+              </div>
+            </li>
+            <li>
+              <b><code>version</code></b>
+                  (<code><span title="str">str</span> | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>Text of version tag</p>
+              </div>
+            </li>
+            <li>
+              <b><code>print_quarto</code></b>
+                  (<code><span title="bool">bool</span></code>, default:
+                      <code>False</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to run Quarto in verbose mode, including its printout of each chunk rendered, by default False</p>
+              </div>
+            </li>
+            <li>
+              <b><code>print_snakemake</code></b>
+                  (<code><span title="bool">bool</span></code>, default:
+                      <code>False</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to run snakemake in verbose mode, by default False</p>
+              </div>
+            </li>
+            <li>
+              <b><code>comment</code></b>
+                  (<code><span title="str">str</span> | None</code>, default:
+                      <code>&#39;#&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Single character used to "comment" out lines in a file used in <code>ids</code>, by default "#"</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+              <details class="quote">
+                <summary>Source code in <code>src/eqcli/batch.py</code></summary>
+                <pre class="highlight"><code class="language-python">class Batch:
+    """Class to manage a set of files to generate from a single list of locations or other IDs. A `Batch` can be one of several created by a `Project`, each representing an independent set of files and tracking its own count of successes and failures. Instances of this class are intended to be created by a `Project` rather than called directly.
+
+    Parameters
+    ----------
+    name : str | None
+        Name of this batch. If None, the batch is named based on the `Project` with a batch number attached.
+    ids : Path | str | list[str]
+        Either a path to a file of IDs (i.e. location names) to be read in, or a list of IDs directly. If a file, it should be formatted with a single ID per line.
+    file_pattern : str
+        String to be used with `format()` to create desired report filenames. Include `"{id}"` as a placeholder for report IDs such as location names, such as `"{id}_equity_{year}.pdf"`, where `year` is a keyed value in the config file.
+    image : str
+        Name or URL of docker image, already built
+    config : dict
+        Snakemake config dictionary, as read from config.yml
+    outdir : Path | str
+        Directory for final generated reports
+    batchdir : str
+        Name of batch working directory
+    version : str | None
+        Text of version tag
+    print_quarto : bool, optional
+        Whether to run Quarto in verbose mode, including its printout of each chunk rendered, by default False
+    print_snakemake : bool, optional
+        Whether to run snakemake in verbose mode, by default False
+    comment : str | None, optional
+        Single character used to "comment" out lines in a file used in `ids`, by default "#"
+    """
+
+    mark_success = "+"
+    mark_fail = "x"
+
+    def __init__(
+        self,
+        name: str | None,
+        ids: Path | str | list[str],
+        file_pattern: str,
+        image: str,
+        config: dict,
+        outdir: Path | str,
+        batchdir: str,
+        version: str | None,
+        print_quarto: bool = False,
+        print_snakemake: bool = False,
+        comment: str | None = "#",
+        mark_success: str = "+",
+        mark_fail: str = "x",
+    ):
+
+        if name is None:
+            self.name = f"batch-{uuid.uuid4()}"
+        else:
+            self.name = name
+        self.image = image
+        self.outdir = Path(outdir)
+        self.batchdir = batchdir
+        self.version = version
+        self.print_quarto = print_quarto
+        self.print_snakemake = print_snakemake
+        self.config = config
+        self.tries = 0
+        self.failures = 0
+        self.successes = 0
+        self.logs: list[str] = []
+        self.mark_success = mark_success
+        self.mark_fail = mark_fail
+        # self.file_pattern = file_pattern
+        # self.files: list[Path] = []
+
+        # ids: either list of names, or file to read names from
+        if isinstance(ids, list):
+            self.ids = ids
+        else:
+            self.ids = read_commented(ids, comment)
+
+        self.files = self._create_file_names(file_pattern, to_snakecase=True, **config)
+        self.docker = self._prep_container()
+
+    ## FILES ----
+    def _create_file_names(
+        self, file_pattern: str, to_snakecase: bool = True, **kwargs
+    ) -&gt; list[Path]:
+        """Create file basenames based on a template literal"""
+        if to_snakecase:
+            ids = snakecase(self.ids)
+        else:
+            ids = self.ids
+        filenames = [file_pattern.format(**kwargs, id=id) for id in ids]
+        # return [Path(self.outdir) / fn for fn in filenames]
+        return [Path(fn) for fn in filenames]
+
+    def _rename_tagged(self, orig: Path, sep: str) -&gt; Path | None:
+        """Rename a file with a tag appended to its base"""
+        # orig = Path(orig)
+        orig = self.outdir / orig
+        if orig.exists():
+            tagged = orig.with_stem(f"{orig.stem}{sep}{self.version}")
+            orig.rename(tagged)
+            return tagged
+        else:
+            return None
+
+    # run tag_files at end
+    def tag_files(self, sep: str = "-") -&gt; None:
+        """Update self.files with tags, given the batch is versioned"""
+        if self.version is not None:
+            files = [self._rename_tagged(f, sep) for f in self.files]
+            self.files = [Path(f) for f in files if f is not None]
+
+    ## LOGGING ----
+    def _write_successful(self, log: str | bytes) -&gt; bool | None:
+        """Translate bullets from bash script deployed by snakemake into boolean successes/failures"""
+        if isinstance(log, bytes):
+            log = log.decode("utf-8")
+        if isinstance(log, str):
+            bullet = re.findall(
+                "^(.) .+ (written|failed)", log
+            )  # returns list of tuple
+            if bullet:
+                if bullet[0][0] == self.mark_success:
+                    return True
+                elif bullet[0][0] == self.mark_fail:
+                    return False
+                else:
+                    return None
+        else:
+            return None
+
+    def _label_successes(self, log_success: bool | None) -&gt; str | None:
+        """Format running count of successes so far"""
+        if log_success is not None:
+            return f"{self.successes:&gt;3} / {self.tries:&gt;3} succeeding"
+
+    ## DOCKER ----
+
+    def _prep_container(self) -&gt; DockerStream:
+        """Create DockerStream instance tied to this batch"""
+        container_name = f"{self.name}-docker"
+        return DockerStream(
+            name=container_name,
+            image=self.image,
+            outdir=self.outdir,
+            contdir=self.batchdir,
+            files=self.files,
+            print_quarto=self.print_quarto,
+            print_snakemake=self.print_snakemake,
+        )
+
+    def run_docker(self) -&gt; None:
+        """Stream output of docker container running from bash script in subprocess. Stores logs and container results."""
+        with self.docker.stream_docker() as logs:
+            printout: list[str] = []
+            for log in logs:
+                log = log.strip()
+                logger.debug(log)
+                # true, false, or none if no match
+                current_success = self._write_successful(log)
+                if current_success is not None:
+                    if current_success:
+                        self.successes += 1
+                    self.tries += 1
+                    click.echo(self._label_successes(current_success))
+                printout.append(log)
+        self.failures = self.tries - self.successes
+        self.logs = printout
+
+    ## BASIC METHODS ----
+    def __str__(self) -&gt; str:
+        if self.version is None:
+            tagging = "No tagging"
+        else:
+            tagging = self.version
+        return f"""
+Batch: {self.name}, {len(self)} files
+Output directory: {str(self.outdir.absolute())}
+File tagging: {tagging}"""
+
+    def __len__(self) -&gt; int:
+        return len(self.files)</code></pre>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eqcli.batch.Batch.run_docker" class="doc doc-heading">
+            <code class="highlight language-python">run_docker()</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Stream output of docker container running from bash script in subprocess. Stores logs and container results.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/eqcli/batch.py</code></summary>
+              <pre class="highlight"><code class="language-python">def run_docker(self) -&gt; None:
+    """Stream output of docker container running from bash script in subprocess. Stores logs and container results."""
+    with self.docker.stream_docker() as logs:
+        printout: list[str] = []
+        for log in logs:
+            log = log.strip()
+            logger.debug(log)
+            # true, false, or none if no match
+            current_success = self._write_successful(log)
+            if current_success is not None:
+                if current_success:
+                    self.successes += 1
+                self.tries += 1
+                click.echo(self._label_successes(current_success))
+            printout.append(log)
+    self.failures = self.tries - self.successes
+    self.logs = printout</code></pre>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eqcli.batch.Batch.tag_files" class="doc doc-heading">
+            <code class="highlight language-python">tag_files(sep='-')</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Update self.files with tags, given the batch is versioned</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/eqcli/batch.py</code></summary>
+              <pre class="highlight"><code class="language-python">def tag_files(self, sep: str = "-") -&gt; None:
+    """Update self.files with tags, given the batch is versioned"""
+    if self.version is not None:
+        files = [self._rename_tagged(f, sep) for f in self.files]
+        self.files = [Path(f) for f in files if f is not None]</code></pre>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../utilities/" class="btn btn-neutral float-left" title="Utilities"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../dockerstream/" class="btn btn-neutral float-right" title="DockerStream">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ct-data-haven/eqcli" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../../utilities/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../dockerstream/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

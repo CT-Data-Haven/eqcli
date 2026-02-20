@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" /><link rel="canonical" href="https://ct-data-haven.github.io/eqcli/" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>eqcli</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "eqcli";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = "/eqcli/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> eqcli
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">eqcli</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting started</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="cli/">CLI reference</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="utilities/">Utilities</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Classes</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="classes/batch/">Batch</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="classes/dockerstream/">DockerStream</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="classes/project/">Project</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="classes/release/">Release</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">eqcli</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">eqcli</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ct-data-haven/eqcli/edit/master/docs/index.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="eqcli">eqcli</h1>
+<p>This is a minimal package of utility functions plus a CLI for generating batches of <a href="https://ctdatahaven.org/report/connecticut-town-equity-reports/">equity reports</a> at DataHaven, plus prepping notes and zip files for release and distro. </p>
+<p>The equity reports project requires generating as many as 200 PDFs, 40+ pages each, of extensive narrative, charts, maps, tables, and notes. All of these moving pieces are orchestrated very precisely across R, Python, and bash, running in a custom Docker container with a snakemake workflow. This is tested locally, then deployed with GitHub Actions. Over the years, the helper Python scripts I've put together for this have evolved into a small yet sprawling CLI, which I am now spinning off into a proper package of its own.</p>
+<h2 id="installation">Installation</h2>
+<p>Until this is on PyPI or similar, install with <code>pip</code> directly from GitHub:</p>
+<pre><code class="language-bash">pip install git+https://github.com/camille-s/eqcli
+</code></pre>
+<h2 id="getting-started">Getting started</h2>
+<p>The <a href="./cli">CLI</a> is built with click, which provides help pages.</p>
+<pre><code class="language-bash">&gt; eqcli --help
+Usage: eqcli [OPTIONS] COMMAND [ARGS]...
+
+  Tools for creating equity reports in docker and writing release notes
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  batch-write    Write a batch set of reports using docker
+  release-notes  Write notes for a release
+  zip-release    Zip files for a release
+</code></pre>
+<p>Each command has a <code>--dry-run</code> option that prints out information about the relevant objects and their potential outputs, based on supplied parameters (work in progress).</p>
+<p>A handful of utility functions are available in the <code>utils</code> module, mostly useful for string manipulation and metadata extraction for snakemake.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="cli/" class="btn btn-neutral float-right" title="CLI reference">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ct-data-haven/eqcli" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+      <span><a href="cli/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.6.1
+Build Date UTC : 2026-02-20 21:05:59.798847+00:00
+-->

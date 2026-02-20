@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://ct-data-haven.github.io/eqcli/classes/project/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Project - eqcli</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Project";
+        var mkdocs_page_input_path = "classes/project.md";
+        var mkdocs_page_url = "/eqcli/classes/project/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> eqcli
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">eqcli</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../cli/">CLI reference</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../utilities/">Utilities</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Classes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../batch/">Batch</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dockerstream/">DockerStream</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Project</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.project.Project">Project</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../release/">Release</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">eqcli</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Classes</li>
+      <li class="breadcrumb-item active">Project</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ct-data-haven/eqcli/edit/master/docs/classes/project.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="project"><code>Project</code></h1>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<a id="eqcli.project.Project"></a>
+    <div class="doc doc-contents first">
+
+
+
+        <p>Object to hold overarching project attributes, including its Docker image, snakemake configs, version, and other options for how the container should be run. A <code>Project</code> will also create one or more <code>Batch</code> objects, representing different sets of files created as part of the project. For example, different batches might have their IDs come from different text files, and maintain their success tracking independently.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>name</code></b>
+                  (<code><span title="str">str</span> | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>Project name</p>
+              </div>
+            </li>
+            <li>
+              <b><code>image</code></b>
+                  (<code><span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Name or URL to docker image, already built</p>
+              </div>
+            </li>
+            <li>
+              <b><code>config_file</code></b>
+                  (<code><span title="pathlib.Path">Path</span> | <span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Path to snakemake config file</p>
+              </div>
+            </li>
+            <li>
+              <b><code>file_pattern</code></b>
+                  (<code><span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>String to be used with <code>format()</code> to create desired report filenames. Include <code>"{id}"</code> as a placeholder for report IDs such as location names, such as <code>"{id}_equity_{year}.pdf"</code>, where <code>year</code> is a keyed value in the config file.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>outdir</code></b>
+                  (<code><span title="pathlib.Path">Path</span> | <span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Directory for final generated reports</p>
+              </div>
+            </li>
+            <li>
+              <b><code>rename</code></b>
+                  (<code><span title="bool">bool</span></code>, default:
+                      <code>False</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether generated reports should be renamed with the version tag appended, by default False</p>
+              </div>
+            </li>
+            <li>
+              <b><code>version</code></b>
+                  (<code><span title="str">str</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Text of version tag, e.g. "0.1.0". If None, must supply <code>version_file</code>. If both are supplied, this takes precedence.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>version_file</code></b>
+                  (<code><span title="pathlib.Path">Path</span> | <span title="str">str</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>File that can be parsed to get a version tag, presumably either pyproject.toml for Python or DESCRIPTION for R. If None, must supply <code>version</code> directly</p>
+              </div>
+            </li>
+            <li>
+              <b><code>version_patt</code></b>
+                  (<code><span title="str">str</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Regex pattern to use to extract version if <code>version_file='DESCRIPTION'</code>. If None, one is used by default that should get a properly formatted version.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>clean</code></b>
+                  (<code><span title="bool">bool</span></code>, default:
+                      <code>False</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to remove all files from <code>outdir</code> before generating new ones, by default False</p>
+              </div>
+            </li>
+            <li>
+              <b><code>clean_glob</code></b>
+                  (<code><span title="str">str</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>If <code>clean=True</code>, the glob to use to designate what files to remove. If None, all files in <code>outdir</code> are removed</p>
+              </div>
+            </li>
+            <li>
+              <b><code>print_quarto</code></b>
+                  (<code><span title="bool">bool</span></code>, default:
+                      <code>False</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to run Quarto in verbose mode, including its printout of each chunk rendered, by default False</p>
+              </div>
+            </li>
+            <li>
+              <b><code>print_snakemake</code></b>
+                  (<code><span title="bool">bool</span></code>, default:
+                      <code>False</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to run snakemake in verbose mode, by default False</p>
+              </div>
+            </li>
+            <li>
+              <b><code>repo</code></b>
+                  (<code><span title="str">str</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>GitHub repo of the project (currently unused), by default None</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+              <details class="quote">
+                <summary>Source code in <code>src/eqcli/project.py</code></summary>
+                <pre class="highlight"><code class="language-python">class Project:
+    """Object to hold overarching project attributes, including its Docker image, snakemake configs, version, and other options for how the container should be run. A `Project` will also create one or more `Batch` objects, representing different sets of files created as part of the project. For example, different batches might have their IDs come from different text files, and maintain their success tracking independently.
+
+    Parameters
+    ----------
+    name : str | None
+        Project name
+    image : str
+        Name or URL to docker image, already built
+    config_file : Path | str
+        Path to snakemake config file
+    file_pattern : str
+        String to be used with `format()` to create desired report filenames. Include `"{id}"` as a placeholder for report IDs such as location names, such as `"{id}_equity_{year}.pdf"`, where `year` is a keyed value in the config file.
+    outdir : Path | str
+        Directory for final generated reports
+    rename : bool, optional
+        Whether generated reports should be renamed with the version tag appended, by default False
+    version : str | None, optional
+        Text of version tag, e.g. "0.1.0". If None, must supply `version_file`. If both are supplied, this takes precedence.
+    version_file : Path | str | None, optional
+        File that can be parsed to get a version tag, presumably either pyproject.toml for Python or DESCRIPTION for R. If None, must supply `version` directly
+    version_patt : str | None, optional
+        Regex pattern to use to extract version if `version_file='DESCRIPTION'`. If None, one is used by default that should get a properly formatted version.
+    clean : bool, optional
+        Whether to remove all files from `outdir` before generating new ones, by default False
+    clean_glob : str | None, optional
+        If `clean=True`, the glob to use to designate what files to remove. If None, all files in `outdir` are removed
+    print_quarto : bool, optional
+        Whether to run Quarto in verbose mode, including its printout of each chunk rendered, by default False
+    print_snakemake : bool, optional
+        Whether to run snakemake in verbose mode, by default False
+    repo : str | None, optional
+        GitHub repo of the project (currently unused), by default None
+    """
+
+    def __init__(
+        self,
+        name: str | None,
+        image: str,
+        config_file: Path | str,
+        file_pattern: str,
+        outdir: Path | str,
+        rename: bool = False,
+        version: str | None = None,
+        version_file: Path | str | None = None,
+        version_patt: str | None = None,
+        clean: bool = False,
+        clean_glob: str | None = None,
+        print_quarto: bool = False,
+        print_snakemake: bool = False,
+        repo: str | None = None,
+    ):
+        self.name = name
+        self.repo = repo
+        self.image = image
+        self.file_pattern = file_pattern
+        self.outdir = Path(outdir)
+        self.rename = rename
+        self.config = self._read_config(config_file)
+        self.version = check_version(version, version_file, version_patt)
+        self.print_quarto = print_quarto
+        self.print_snakemake = print_snakemake
+        self.batches: list[Batch] = []
+
+        # setup outdir
+        self._setup_dir()
+        if clean and clean_glob is not None:
+            self._clean_dir(clean_glob)
+
+    ## SETUP PROJECT ----
+    def _setup_dir(self) -&gt; None:
+        """Give a directory permissions necessary for docker &amp; GitHub Actions runner to have write access, creating the directory if needed"""
+        if not self.outdir.exists():
+            click.echo(f"Creating directory {self.outdir}")
+            self.outdir.mkdir(parents=True, exist_ok=True)
+        self.outdir.chmod(mode=0o777)
+        return None
+
+    def _clean_dir(self, glob: str) -&gt; None:
+        """Delete files in a directory based on a glob
+
+        Parameters
+        ----------
+        glob : str
+            Glob pattern to match files for deletion
+        """
+        files = list(self.outdir.glob(glob))
+        if len(files) == 0:
+            click.echo(f"No files in {self.outdir} to remove")
+        else:
+            click.echo(f"Removing {len(files)} files from {self.outdir}")
+            for file in files:
+                file.unlink()
+        return None
+
+    def _read_config(self, config_file: Path | str) -&gt; dict:
+        """Read a snakemake-syle yaml config file
+
+        Parameters
+        ----------
+        config_file : Path | str
+            Path to config file
+
+        Returns
+        -------
+        dict
+            A dict as represented in `config_file`, with a default value of "batch" set if no key `batch_dir` already exists
+        """
+        with open(config_file, "r") as f:
+            config = yaml.safe_load(f)
+        if "batch_dir" not in config or "batchdir" not in config:
+            config["batch_dir"] = "batch"
+        return config
+
+    ## MAKE &amp; DEPLOY BATCHES ----
+    def _create_batch(
+        self, batch_name: str, ids: Path | str | list[str], rename: bool
+    ) -&gt; Batch:
+        batch_version = self.version if rename else None
+        # skipping default args for now
+        return Batch(
+            name=batch_name,
+            ids=ids,
+            file_pattern=self.file_pattern,
+            image=self.image,
+            config=self.config,
+            outdir=self.outdir,
+            batchdir=self.config["batch_dir"],
+            version=batch_version,
+            print_quarto=self.print_quarto,
+            print_snakemake=self.print_snakemake,
+        )
+
+    def add_batch(
+        self, ids: Path | str | list[str], rename: bool = False, append: bool = True
+    ) -&gt; None:
+        batch_id = len(self.batches)
+        batch = self._create_batch(
+            batch_name=f"{self.name}-batch-{batch_id}", ids=ids, rename=rename
+        )
+        if append:
+            self.batches.append(batch)
+        else:
+            self.batches = [batch]
+
+    def run_batches(self) -&gt; None:
+        for batch in self.batches:
+            batch.run_docker()
+
+    def print_overview(self) -&gt; None:
+        click.secho("\nPROJECT: -------------------------", fg="yellow", bold=True)
+        print(self)
+        click.secho("\nBATCHES: -------------------------", fg="yellow", bold=True)
+        for batch in self.batches:
+            print(batch)
+
+    def print_docker_logs(self) -&gt; None:
+        for batch in self.batches:
+            for log in batch.logs:
+                click.echo(log)
+
+    ## BASIC METHODS ----
+    def __str__(self) -&gt; str:
+        return f"""
+Project: `{self.name}` version {self.version}
+Docker image: '{self.image}'
+Batches: {len(self.batches)}"""
+
+    def __iter__(self):
+        return iter(self.batches)</code></pre>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../dockerstream/" class="btn btn-neutral float-left" title="DockerStream"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../release/" class="btn btn-neutral float-right" title="Release">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ct-data-haven/eqcli" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../dockerstream/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../release/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

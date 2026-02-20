@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://ct-data-haven.github.io/eqcli/utilities/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Utilities - eqcli</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Utilities";
+        var mkdocs_page_input_path = "utilities.md";
+        var mkdocs_page_url = "/eqcli/utilities/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> eqcli
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">eqcli</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../cli/">CLI reference</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Utilities</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.utils">utils</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.utils.check_version">check_version</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.utils.create_file_names">create_file_names</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.utils.file_timestamp">file_timestamp</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.utils.id_from_file">id_from_file</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.utils.parse_file_pattern">parse_file_pattern</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.utils.read_commented">read_commented</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.utils.read_version">read_version</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.utils.snakecase">snakecase</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.utils.titlecase">titlecase</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.utils.unabbrev_yrs">unabbrev_yrs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.utils.y2k">y2k</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Classes</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../classes/batch/">Batch</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../classes/dockerstream/">DockerStream</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../classes/project/">Project</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../classes/release/">Release</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">eqcli</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Utilities</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ct-data-haven/eqcli/edit/master/docs/utilities.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="utilities">Utilities</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="eqcli.utils"></a>
+    <div class="doc doc-contents first">
+
+        <p>Utility functions, mostly for working with filenames to parse information in snakemake workflows.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eqcli.utils.check_version" class="doc doc-heading">
+            <code class="highlight language-python">check_version(version, version_file, version_patt, is_required=True)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Read and/or verify project version</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>version</code></b>
+                  (<code><span title="str">str</span> | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>Version, such as "0.2.1"</p>
+              </div>
+            </li>
+            <li>
+              <b><code>version_file</code></b>
+                  (<code><span title="pathlib.Path">Path</span> | <span title="str">str</span> | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>File containing a version, such as "pyproject.toml" or "DESCRIPTION"</p>
+              </div>
+            </li>
+            <li>
+              <b><code>version_patt</code></b>
+                  (<code><span title="str">str</span> | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>Regex pattern to use to find version tag</p>
+              </div>
+            </li>
+            <li>
+              <b><code>is_required</code></b>
+                  (<code><span title="bool">bool</span></code>, default:
+                      <code>True</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>If true (default), must resolve to some version. Otherwise, not finding a version and returning None is allowed</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="str">str</span> | None</code>
+              –
+              <div class="doc-md-description">
+                <p>The version, either as supplied or as read from a file. <code>version</code> argument takes precedence if both it and <code>version_file</code> are given. If <code>is_required</code> is false and no version is found, will return <code>None</code>.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="ValueError">ValueError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>Error if neither <code>version</code> nor <code>version_file</code> is given, and <code>is_required=True</code>.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/eqcli/utils.py</code></summary>
+              <pre class="highlight"><code class="language-python">def check_version(
+    version: str | None,
+    version_file: Path | str | None,
+    version_patt: str | None,
+    is_required: bool = True,
+) -&gt; str | None:
+    """Read and/or verify project version
+
+    Parameters
+    ----------
+    version : str | None
+        Version, such as "0.2.1"
+    version_file : Path | str | None
+        File containing a version, such as "pyproject.toml" or "DESCRIPTION"
+    version_patt : str | None
+        Regex pattern to use to find version tag
+    is_required : bool
+        If true (default), must resolve to some version. Otherwise, not finding a version and returning None is allowed
+
+    Returns
+    -------
+    str | None
+        The version, either as supplied or as read from a file. `version` argument takes precedence if both it and `version_file` are given. If `is_required` is false and no version is found, will return `None`.
+
+    Raises
+    ------
+    ValueError
+        Error if neither `version` nor `version_file` is given, and `is_required=True`.
+    """
+    if version is None:
+        if version_file is None:
+            if is_required:
+                raise ValueError("must supply a version or a version file")
+            else:
+                return None
+        else:
+            if is_required:
+                return read_version(version_file, version_patt)
+            else:
+                try:
+                    return read_version(version_file, version_patt)
+                except ValueError:
+                    return None
+    else:
+        return version</code></pre>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eqcli.utils.create_file_names" class="doc doc-heading">
+            <code class="highlight language-python">create_file_names(template, path=None, ids=None, to_snakecase=True, comment='#', **kwargs)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Batch create filenames based on IDs read from a text file and/or a list, formatted with a template literal and kwargs</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>template</code></b>
+                  (<code><span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Template that can be interpreted by <code>format()</code>. Should contain '{id}' to have that filled in by identifiers</p>
+              </div>
+            </li>
+            <li>
+              <b><code>path</code></b>
+                  (<code><span title="str">str</span> | <span title="pathlib.Path">Path</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Path to a text file of identifiers that can be passed to <code>read_commented</code>, by default None</p>
+              </div>
+            </li>
+            <li>
+              <b><code>ids</code></b>
+                  (<code><span title="list">list</span>[<span title="str">str</span>] | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>List of strings of identifiers, by default None</p>
+              </div>
+            </li>
+            <li>
+              <b><code>to_snakecase</code></b>
+                  (<code><span title="bool">bool</span></code>, default:
+                      <code>True</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Convert filenames to snakecase, by default True</p>
+              </div>
+            </li>
+            <li>
+              <b><code>comment</code></b>
+                  (<code><span title="str">str</span> | None</code>, default:
+                      <code>&#39;#&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Single string designating a comment for omitting lines to pass to <code>read_commented</code>, by default "#"</p>
+              </div>
+            </li>
+            <li>
+              <b><code>**kwargs</code></b>
+              –
+              <div class="doc-md-description">
+                <p>Keyword args to fill into the template</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+              –
+              <div class="doc-md-description">
+                <p>A list of strings giving paths to output files with keywords filled in.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="ValueError">ValueError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>Errors if both 'path' and 'ids' are None</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <pre class="highlight"><code class="language-pycon">&gt;&gt;&gt; create_file_names("{outdir}/{id}_report_{yr}.pdf", ids=["New Haven", "Hartford"], outdir="to_distro", yr=2026)
+['to_distro/new_haven_report_2026.pdf', 'to_distro/hartford_report_2026.pdf']</code></pre>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/eqcli/utils.py</code></summary>
+              <pre class="highlight"><code class="language-python">def create_file_names(
+    template: str,
+    path: str | Path | None = None,
+    ids: list[str] | None = None,
+    to_snakecase: bool = True,
+    comment: str | None = "#",
+    **kwargs,
+) -&gt; list[str]:
+    """Batch create filenames based on IDs read from a text file and/or a list, formatted with a template literal and kwargs
+
+    Parameters
+    ----------
+    template : str
+        Template that can be interpreted by `format()`. Should contain '{id}' to have that filled in by identifiers
+    path : str | Path | None, optional
+        Path to a text file of identifiers that can be passed to `read_commented`, by default None
+    ids : list[str] | None, optional
+        List of strings of identifiers, by default None
+    to_snakecase : bool, optional
+        Convert filenames to snakecase, by default True
+    comment : str | None, optional
+        Single string designating a comment for omitting lines to pass to `read_commented`, by default "#"
+    **kwargs: dict
+        Keyword args to fill into the template
+
+    Returns
+    -------
+    list[str]
+        A list of strings giving paths to output files with keywords filled in.
+
+    Raises
+    ------
+    ValueError
+        Errors if both 'path' and 'ids' are None
+
+    Examples
+    ------
+    &gt;&gt;&gt; create_file_names("{outdir}/{id}_report_{yr}.pdf", ids=["New Haven", "Hartford"], outdir="to_distro", yr=2026)
+    ['to_distro/new_haven_report_2026.pdf', 'to_distro/hartford_report_2026.pdf']
+    """
+    if path is None and ids is None:
+        raise ValueError("must supply 'path' and/or 'ids'")
+    if ids is None:
+        ids_out = []
+    else:
+        ids_out = ids
+    if path is not None:
+        ids_out = ids_out + read_commented(path, comment)
+    if to_snakecase:
+        ids_out = snakecase(ids_out)
+    return [template.format(**kwargs, id=id) for id in ids_out]</code></pre>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eqcli.utils.file_timestamp" class="doc doc-heading">
+            <code class="highlight language-python">file_timestamp(path, fmt='%Y-%m-%d %H:%M:%S')</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get file's modification time as a formatted timestamp</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>path</code></b>
+                  (<code><span title="pathlib.Path">Path</span> | <span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Path to file</p>
+              </div>
+            </li>
+            <li>
+              <b><code>fmt</code></b>
+                  (<code><span title="str">str</span></code>, default:
+                      <code>&#39;%Y-%m-%d %H:%M:%S&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Datetime format compatable with <code>strftime</code>, defaults "%Y-%m-%d %H:%M:%S"</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="str">str</span></code>
+              –
+              <div class="doc-md-description">
+                <p>Formatted timestamp</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/eqcli/utils.py</code></summary>
+              <pre class="highlight"><code class="language-python">def file_timestamp(path: Path | str, fmt: str = "%Y-%m-%d %H:%M:%S") -&gt; str:
+    """Get file's modification time as a formatted timestamp
+
+    Parameters
+    ----------
+    path : Path | str
+        Path to file
+    fmt  : str
+        Datetime format compatable with `strftime`, defaults "%Y-%m-%d %H:%M:%S"
+
+    Returns
+    -------
+    str
+        Formatted timestamp
+    """
+    path = Path(path)
+    mod = path.stat().st_mtime
+    timestamp = datetime.fromtimestamp(mod)
+    fmttd = timestamp.strftime(fmt)
+    return fmttd</code></pre>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eqcli.utils.id_from_file" class="doc doc-heading">
+            <code class="highlight language-python">id_from_file(path, patt)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Extract a report ID (location, etc) from its filename given a regex pattern</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>path</code></b>
+                  (<code><span title="pathlib.Path">Path</span> | <span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Path to file</p>
+              </div>
+            </li>
+            <li>
+              <b><code>patt</code></b>
+                  (<code><span title="str">str</span> | <span title="re.Pattern">Pattern</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Pattern or string that can be compiled to re pattern. Should probably contain a group to match.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="str">str</span> | None</code>
+              –
+              <div class="doc-md-description">
+                <p>If the pattern matches, the first match is returned; otherwise, None</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <pre class="highlight"><code class="language-pycon">&gt;&gt;&gt; id_from_file("to_distro/capitol_region_cog_equity_2026.pdf", "(\w+)_equity")
+'capitol_region_cog'</code></pre>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/eqcli/utils.py</code></summary>
+              <pre class="highlight"><code class="language-python">def id_from_file(path: Path | str, patt: str | re.Pattern) -&gt; str | None:
+    """Extract a report ID (location, etc) from its filename given a regex pattern
+
+    Parameters
+    ----------
+    path : Path | str
+        Path to file
+    patt : str | re.Pattern
+        Pattern or string that can be compiled to re pattern. Should probably contain a group to match.
+
+    Returns
+    -------
+    str | None
+        If the pattern matches, the first match is returned; otherwise, None
+
+    Examples
+    --------
+    &gt;&gt;&gt; id_from_file("to_distro/capitol_region_cog_equity_2026.pdf", "(\\w+)_equity")
+    'capitol_region_cog'
+    """
+    fn = Path(path).name
+    if isinstance(patt, str):
+        patt = re.compile(patt)
+    id = patt.findall(fn)
+    if id:
+        return id[0]
+    else:
+        return None</code></pre>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eqcli.utils.parse_file_pattern" class="doc doc-heading">
+            <code class="highlight language-python">parse_file_pattern(filename, file_pattern)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Convert format string used for generating file names into regex to extract IDs</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/eqcli/utils.py</code></summary>
+              <pre class="highlight"><code class="language-python">def parse_file_pattern(filename: Path | str, file_pattern: str):
+    """Convert format string used for generating file names into regex to extract IDs"""
+    filename = str(filename)
+    # replace {id} with regex for named matching group
+    # e.g. "{id}_equity_{doc_yr}.{ext}" -&gt; "(?P&lt;id&gt;.+)_equity_{doc_yr}.{ext}"
+    patt1 = file_pattern.replace("{id}", "(?P&lt;id&gt;.+)")
+    # replace brackets with wildcards
+    patt2 = re.sub(r"\{.*?\}", ".+", patt1)
+    id = re.compile(patt2).findall(filename)
+    return id[0]</code></pre>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eqcli.utils.read_commented" class="doc doc-heading">
+            <code class="highlight language-python">read_commented(path, comment='#')</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Read lines in a file, optionally omitting commented lines</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>path</code></b>
+                  (<code><span title="str">str</span> | <span title="pathlib.Path">Path</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Path to a text file</p>
+              </div>
+            </li>
+            <li>
+              <b><code>comment</code></b>
+                  (<code><span title="str">str</span> | None</code>, default:
+                      <code>&#39;#&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Single character string designating a line to omit, by default '#'</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+              –
+              <div class="doc-md-description">
+                <p>Lines of the file as a list of strings, excluding commented lines</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="ValueError">ValueError</span></code>
+              –
+              <div class="doc-md-description">
+                <p>'comment' must be a string of length 1</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/eqcli/utils.py</code></summary>
+              <pre class="highlight"><code class="language-python">def read_commented(path: str | Path, comment: str | None = "#") -&gt; list[str]:
+    """Read lines in a file, optionally omitting commented lines
+
+    Parameters
+    ----------
+    path : str | Path
+        Path to a text file
+    comment : str | None, optional
+        Single character string designating a line to omit, by default '#'
+
+    Returns
+    -------
+    list[str]
+        Lines of the file as a list of strings, excluding commented lines
+
+    Raises
+    ------
+    ValueError
+        'comment' must be a string of length 1
+    """
+    if comment is not None and len(comment) != 1:
+        raise ValueError("'comment' should be a string of length 1")
+    with open(path, "r") as f:
+        lines = f.read().splitlines()
+    if comment is None:
+        return lines
+    else:
+        return [line for line in lines if line[0] != comment]</code></pre>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eqcli.utils.read_version" class="doc doc-heading">
+            <code class="highlight language-python">read_version(file, patt=None)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Extract project version from a file based on a pattern</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>file</code></b>
+                  (<code><span title="pathlib.Path">Path</span> | <span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Path to a file containing project version</p>
+              </div>
+            </li>
+            <li>
+              <b><code>patt</code></b>
+                  (<code><span title="str">str</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Pattern to compile to regex in order to extract version. If None, will supply a pattern that matches either an R description file or a common pyproject.toml pattern.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="str">str</span></code>
+              –
+              <div class="doc-md-description">
+                <p>First match found, in "v$version" format.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/eqcli/utils.py</code></summary>
+              <pre class="highlight"><code class="language-python">def read_version(file: Path | str, patt: str | None = None) -&gt; str:
+    """Extract project version from a file based on a pattern
+
+    Parameters
+    ----------
+    file : Path | str, optional
+        Path to a file containing project version
+    patt : str | None, optional
+        Pattern to compile to regex in order to extract version. If None, will supply a pattern that matches either an R description file or a common pyproject.toml pattern.
+
+    Returns
+    -------
+    str
+        First match found, in "v$version" format.
+    """
+    # if no pattern supplied, use appropriate for file type
+    file = Path(file)
+    if file.stem == "DESCRIPTION":
+        txt = file.read_text()
+        if patt is None:
+            patt = r"(?&lt;=Version:\s)([0-9a-z\-\.]+)(?=\n)"
+        version = re.compile(patt).findall(txt)
+    else:
+        version = value_from_toml(file, key="version")
+    if version:
+        return f"v{version[0]}"
+    else:
+        raise ValueError("pattern 'patt' not found for project version")</code></pre>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eqcli.utils.snakecase" class="doc doc-heading">
+            <code class="highlight language-python">snakecase(x)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Convert single string or list of strings to snakecase.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>x</code></b>
+                  (<code><span title="list">list</span>[<span title="str">str</span>] | <span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>String or list of strings to be converted.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="list">list</span>[<span title="str">str</span>] | <span title="str">str</span></code>
+              –
+              <div class="doc-md-description">
+                <p>String or list of strings in snakecase.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/eqcli/utils.py</code></summary>
+              <pre class="highlight"><code class="language-python">def snakecase(x: list[str] | str) -&gt; list[str] | str:
+    """Convert single string or list of strings to snakecase.
+
+    Parameters
+    ----------
+    x : list[str] | str
+        String or list of strings to be converted.
+
+    Returns
+    -------
+    list[str] | str
+        String or list of strings in snakecase.
+    """
+    if isinstance(x, list):
+        return [_snakecase(i) for i in x]
+    else:
+        return _snakecase(x)</code></pre>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eqcli.utils.titlecase" class="doc doc-heading">
+            <code class="highlight language-python">titlecase(x, cap=['COG', 'HSA'])</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Convert single string or list of strings to titlecase, optionally writing some text in all caps (such as acronyms).</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>x</code></b>
+                  (<code><span title="list">list</span>[<span title="str">str</span>] | <span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>String or list of strings to be converted.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>cap</code></b>
+                  (<code><span title="list">list</span>[<span title="str">str</span>] | None</code>, default:
+                      <code>[&#39;COG&#39;, &#39;HSA&#39;]</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Optional list of strings to be all caps. If <code>None</code>, this step is skipped. By default, ["COG", "HSA"].</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="list">list</span>[<span title="str">str</span>] | <span title="str">str</span></code>
+              –
+              <div class="doc-md-description">
+                <p>String or list of strings in titlecase, with <code>cap</code> substrings in all caps.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/eqcli/utils.py</code></summary>
+              <pre class="highlight"><code class="language-python">def titlecase(
+    x: list[str] | str, cap: list[str] | None = ["COG", "HSA"]
+) -&gt; list[str] | str:
+    """Convert single string or list of strings to titlecase, optionally writing some text in all caps (such as acronyms).
+
+    Parameters
+    ----------
+    x : list[str] | str
+        String or list of strings to be converted.
+    cap : list[str] | None, optional
+        Optional list of strings to be all caps. If `None`, this step is skipped. By default, ["COG", "HSA"].
+
+    Returns
+    -------
+    list[str] | str
+        String or list of strings in titlecase, with `cap` substrings in all caps.
+    """
+    if isinstance(x, list):
+        return [_titlecase(i, cap) for i in x]
+    else:
+        return _titlecase(x, cap)</code></pre>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eqcli.utils.unabbrev_yrs" class="doc doc-heading">
+            <code class="highlight language-python">unabbrev_yrs(x, sep='_')</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Split a concatenated string of years in 2-digit format</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>x</code></b>
+                  (<code><span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>A string of two 2-digit years smooshed together, e.g. "1524"</p>
+              </div>
+            </li>
+            <li>
+              <b><code>sep</code></b>
+                  (<code><span title="str">str</span></code>, default:
+                      <code>&#39;_&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Character to separate strings in output, by default "_"</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="str">str</span></code>
+              –
+              <div class="doc-md-description">
+                <p>A string of years separated, e.g. "1524" -&gt; "15_24"</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/eqcli/utils.py</code></summary>
+              <pre class="highlight"><code class="language-python">def unabbrev_yrs(x: str, sep: str = "_") -&gt; str:
+    """Split a concatenated string of years in 2-digit format
+
+    Parameters
+    ----------
+    x : str
+        A string of two 2-digit years smooshed together, e.g. "1524"
+    sep : str, optional
+        Character to separate strings in output, by default "_"
+
+    Returns
+    -------
+    str
+        A string of years separated, e.g. "1524" -&gt; "15_24"
+    """
+    return f"{x[0:2]}{sep}{x[2:4]}"</code></pre>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eqcli.utils.y2k" class="doc doc-heading">
+            <code class="highlight language-python">y2k(x, sep='_')</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Bring 2-digit years into the 21st century.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>x</code></b>
+                  (<code><span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>String with one or more sets of 21st century years in 2-digit format, e.g. "15_24"</p>
+              </div>
+            </li>
+            <li>
+              <b><code>sep</code></b>
+                  (<code><span title="str">str</span></code>, default:
+                      <code>&#39;_&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Separator on which to split years, by default '_'</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="str">str</span></code>
+              –
+              <div class="doc-md-description">
+                <p>String where 2-digit years have been converted to 4-digit, e.g. "15_24" -&gt; "2015_2024"</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/eqcli/utils.py</code></summary>
+              <pre class="highlight"><code class="language-python">def y2k(x: str, sep: str = "_") -&gt; str:
+    """Bring 2-digit years into the 21st century.
+
+    Parameters
+    ----------
+    x : str
+        String with one or more sets of 21st century years in 2-digit format, e.g. "15_24"
+    sep : str, optional
+        Separator on which to split years, by default '_'
+
+    Returns
+    -------
+    str
+        String where 2-digit years have been converted to 4-digit, e.g. "15_24" -&gt; "2015_2024"
+    """
+    xs = x.split(sep)
+    return sep.join([_y2k(i) for i in xs])</code></pre>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../cli/" class="btn btn-neutral float-left" title="CLI reference"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../classes/batch/" class="btn btn-neutral float-right" title="Batch">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ct-data-haven/eqcli" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../cli/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../classes/batch/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

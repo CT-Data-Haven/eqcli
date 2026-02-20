@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://ct-data-haven.github.io/eqcli/classes/release/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Release - eqcli</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Release";
+        var mkdocs_page_input_path = "classes/release.md";
+        var mkdocs_page_url = "/eqcli/classes/release/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> eqcli
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">eqcli</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../cli/">CLI reference</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../utilities/">Utilities</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Classes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../batch/">Batch</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dockerstream/">DockerStream</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../project/">Project</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Release</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.release.Release">Release</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.release.Release.write_notes_md">write_notes_md</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">eqcli</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Classes</li>
+      <li class="breadcrumb-item active">Release</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ct-data-haven/eqcli/edit/master/docs/classes/release.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="release"><code>Release</code></h1>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<a id="eqcli.release.Release"></a>
+    <div class="doc doc-contents first">
+
+
+
+        <p>Class representing a public release of report output, as in a GitHub release. Its main tasks are generating tables of IDs and associated filenames to be uploaded as release notes, and packaging files into zipped archives.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>name</code></b>
+                  (<code><span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Name of release</p>
+              </div>
+            </li>
+            <li>
+              <b><code>outdir</code></b>
+                  (<code><span title="pathlib.Path">Path</span> | <span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Directory for final generated reports</p>
+              </div>
+            </li>
+            <li>
+              <b><code>version</code></b>
+                  (<code><span title="str">str</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                
+              </div>
+            </li>
+            <li>
+              <b><code>Text</code></b>
+              –
+              <div class="doc-md-description">
+                
+              </div>
+            </li>
+            <li>
+              <b><code>version_file</code></b>
+                  (<code><span title="pathlib.Path">Path</span> | <span title="str">str</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>File that can be parsed to get a version tag, presumably either pyproject.toml for Python or DESCRIPTION for R. If None, must supply <code>version</code> directly</p>
+              </div>
+            </li>
+            <li>
+              <b><code>version_patt</code></b>
+                  (<code><span title="str">str</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Regex pattern to use to extract version if <code>version_file='DESCRIPTION'</code>. If None, one is used by default that should get a properly formatted version.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>id_regex</code></b>
+                  (<code><span title="str">str</span> | <span title="re.Pattern">Pattern</span></code>, default:
+                      <code>&#39;(\\w+)_equity&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Regex pattern to extract IDs out of filenames, kind of the reverse of <code>Project</code>'s file_pattern argument, by default <code>r"(\w+)_equity"</code></p>
+              </div>
+            </li>
+            <li>
+              <b><code>md_out</code></b>
+                  (<code><span title="pathlib.Path">Path</span> | <span title="str">str</span></code>, default:
+                      <code>&#39;release-notes.md&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Path to write out notes in a markdown file, by default "release-notes.md"</p>
+              </div>
+            </li>
+            <li>
+              <b><code>xwalk_path</code></b>
+                  (<code><span title="pathlib.Path">Path</span> | <span title="str">str</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>If files should be grouped in the markdown table and/or in zip files, a CSV crosswalk can be given with IDs of reports and their groups (e.g. reports done for hospital service areas, packaged up by hospital system). If None, this is skipped.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>xwalk_join_on</code></b>
+                  (<code><span title="str">str</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Name of column in the crosswalk to join with IDs, by default None</p>
+              </div>
+            </li>
+            <li>
+              <b><code>xwalk_group_col</code></b>
+                  (<code><span title="str">str</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Name of column in the crosswalk that contains groups, by default None</p>
+              </div>
+            </li>
+            <li>
+              <b><code>glob</code></b>
+                  (<code><span title="str">str</span> | None</code>, default:
+                      <code>&#39;*.pdf&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Glob used to identify reports in the output directory, by default "*.pdf". If None, all files will be used.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+              <details class="quote">
+                <summary>Source code in <code>src/eqcli/release.py</code></summary>
+                <pre class="highlight"><code class="language-python">class Release:
+    """Class representing a public release of report output, as in a GitHub release. Its main tasks are generating tables of IDs and associated filenames to be uploaded as release notes, and packaging files into zipped archives.
+
+    Parameters
+    ----------
+    name : str
+        Name of release
+    outdir : Path | str
+        Directory for final generated reports
+    version : str | None, optional
+    Text of version tag, e.g. "0.1.0". If None, must supply `version_file`. If both are supplied, this takes precedence.
+    version_file : Path | str | None, optional
+        File that can be parsed to get a version tag, presumably either pyproject.toml for Python or DESCRIPTION for R. If None, must supply `version` directly
+    version_patt : str | None, optional
+        Regex pattern to use to extract version if `version_file='DESCRIPTION'`. If None, one is used by default that should get a properly formatted version.
+    id_regex : str | re.Pattern, optional
+        Regex pattern to extract IDs out of filenames, kind of the reverse of `Project`'s file_pattern argument, by default `r"(\w+)_equity"`
+    md_out : Path | str, optional
+        Path to write out notes in a markdown file, by default "release-notes.md"
+    xwalk_path : Path | str | None, optional
+        If files should be grouped in the markdown table and/or in zip files, a CSV crosswalk can be given with IDs of reports and their groups (e.g. reports done for hospital service areas, packaged up by hospital system). If None, this is skipped.
+    xwalk_join_on : str | None, optional
+        Name of column in the crosswalk to join with IDs, by default None
+    xwalk_group_col : str | None, optional
+        Name of column in the crosswalk that contains groups, by default None
+    glob : str | None, optional
+        Glob used to identify reports in the output directory, by default "*.pdf". If None, all files will be used.
+    """
+
+    def __init__(
+        self,
+        name: str,
+        outdir: Path | str,
+        version: str | None = None,
+        version_file: Path | str | None = None,
+        version_patt: str | None = None,
+        id_regex: str | re.Pattern = r"(\w+)_equity",
+        md_out: Path | str = "release-notes.md",
+        xwalk_path: Path | str | None = None,
+        xwalk_join_on: str | None = None,
+        xwalk_group_col: str | None = None,
+        glob: str | None = "*.pdf",
+    ):
+        self.name = name
+        self.outdir = Path(outdir)
+        self.version = check_version(version, version_file, version_patt)
+        self.md_out = Path(md_out)
+        self.group_col = xwalk_group_col
+
+        if xwalk_path is not None:
+            xwalk = self._read_xwalk(xwalk_path)
+        else:
+            xwalk = None
+
+        if glob is None:
+            glob = "*"
+
+        self.files_df = self._list_files(glob, id_regex, xwalk, xwalk_join_on)
+        self.last_mod = self.files_df["modified"].max()
+
+    def _read_xwalk(self, path: Path | str) -&gt; pd.DataFrame:
+        df = pd.read_csv(path)
+        return df
+
+    def _list_files(
+        self,
+        glob: str,
+        id_regex: str | re.Pattern,
+        xwalk: pd.DataFrame | None,
+        join_on: str | None,
+    ) -&gt; pd.DataFrame:
+        """Create df of files for release, optionally joining with a crosswalk to categorize reports"""
+        files = [f for f in self.outdir.glob(glob)]
+        df = pd.DataFrame(files, columns=["path"])
+        df["fn"] = df["path"].apply(lambda x: x.name)
+        df["modified"] = df["path"].apply(file_timestamp)
+        df["id"] = df["fn"].apply(lambda x: id_from_file(x, id_regex))
+        df["id"] = df["id"].apply(titlecase)
+        df = df.loc[:, ["id", "path", "modified"]]
+        df = df.set_index("id")
+
+        # if this release has a grouping crosswalk, merge it here and reindex
+        if isinstance(xwalk, pd.DataFrame):
+            if join_on in xwalk.columns:
+                xwalk = xwalk.set_index(join_on)
+                df = df.merge(xwalk, left_index=True, right_index=True, how="left")
+                df = df.reset_index()
+            else:
+                logger.warning(f"Missing column {join_on} in xwalk; skipping join step")
+                return df
+        if self.group_col in df.columns:
+            df = df.sort_values([self.group_col, "id"]).set_index(self.group_col)
+        else:
+            df = df.sort_values("id")
+        return df
+
+    def _df_to_zip(
+        self,
+        zipname: str,
+        df: pd.DataFrame,
+        zipdir: Path,
+        path_col: str = "path",
+        verbose: bool = True,
+    ) -&gt; Path:
+        paths = df[path_col].to_list()
+        file_out = zipdir / f"{zipname}.zip"
+        with ZipFile(file_out, "w", compression=ZIP_BZIP2) as zipper:
+            for file in paths:
+                zipper.write(file)
+            if verbose:
+                click.echo(f"{file_out} created with {len(paths)} file(s).")
+        return file_out
+
+    def write_notes_md(self, verbose: bool = True) -&gt; None:
+        """Write files_df to markdown table"""
+        self.files_df.reset_index().to_markdown(self.md_out)
+        if verbose:
+            if self.md_out.exists():
+                click.echo(f"Markdown table written to {self.md_out}")
+            else:
+                click.echo(f"Failed to write markdown table to {self.md_out}")
+        return None
+
+    def zip_files(
+        self, zip_by_group: bool, zipdir: Path | str | None = None, verbose: bool = True
+    ) -&gt; list[Path]:
+        if zipdir is None:
+            zipdir = "."
+        zipdir = Path(zipdir)
+        zipdir.mkdir(parents=True, exist_ok=True)
+        # copy to avoid changing object's dataframe
+        df = self.files_df.copy()
+        zip_paths = []
+        if zip_by_group:
+            # should be indexed by group col but double check
+            if self.group_col in df.columns:
+                df = df.set_index(self.group_col)
+            elif self.group_col not in df.index.names:
+                raise ValueError(f"column {self.group_col} not found in df columns")
+            # df_to_zip for each sub-df
+            groups = df.index.unique()
+            for group in groups:
+                name = f"{self.name}_{group}-{self.version}"
+                grp_df = df.loc[[group], :]
+                zip_path = self._df_to_zip(
+                    zipname=name,
+                    df=grp_df,
+                    zipdir=zipdir,
+                    path_col="path",
+                    verbose=verbose,
+                )
+                zip_paths.append(zip_path)
+        else:
+            # df_to_zip for full df
+            name = f"{self.name}_all_files-{self.version}"
+            zip_path = self._df_to_zip(
+                zipname=name, df=df, zipdir=zipdir, path_col="path", verbose=verbose
+            )
+            zip_paths.append(zip_path)
+        return zip_paths
+
+    def __str__(self) -&gt; str:
+        return f"""
+Release: {self.name} version {self.version}
+Files: {len(self.files_df)}
+Last file modification: {self.last_mod}
+Notes: {self.md_out.absolute()}"""</code></pre>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="eqcli.release.Release.write_notes_md" class="doc doc-heading">
+            <code class="highlight language-python">write_notes_md(verbose=True)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Write files_df to markdown table</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/eqcli/release.py</code></summary>
+              <pre class="highlight"><code class="language-python">def write_notes_md(self, verbose: bool = True) -&gt; None:
+    """Write files_df to markdown table"""
+    self.files_df.reset_index().to_markdown(self.md_out)
+    if verbose:
+        if self.md_out.exists():
+            click.echo(f"Markdown table written to {self.md_out}")
+        else:
+            click.echo(f"Failed to write markdown table to {self.md_out}")
+    return None</code></pre>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../project/" class="btn btn-neutral float-left" title="Project"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ct-data-haven/eqcli" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../project/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

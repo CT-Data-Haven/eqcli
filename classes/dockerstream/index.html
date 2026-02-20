@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://ct-data-haven.github.io/eqcli/classes/dockerstream/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>DockerStream - eqcli</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "DockerStream";
+        var mkdocs_page_input_path = "classes/dockerstream.md";
+        var mkdocs_page_url = "/eqcli/classes/dockerstream/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> eqcli
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">eqcli</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../cli/">CLI reference</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../utilities/">Utilities</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Classes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../batch/">Batch</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">DockerStream</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#eqcli.docker.DockerStream">DockerStream</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../project/">Project</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../release/">Release</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">eqcli</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Classes</li>
+      <li class="breadcrumb-item active">DockerStream</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/ct-data-haven/eqcli/edit/master/docs/classes/dockerstream.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="dockerstream"><code>DockerStream</code></h1>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<a id="eqcli.docker.DockerStream"></a>
+    <div class="doc doc-contents first">
+
+
+
+        <p>Class to stream the output of a <code>docker run</code> command via the subprocess module. Each <code>Batch</code> object will create its own <code>DockerStream</code> object to run the appropriate snakemake rule within a docker container. This will then stream the container's output back to the <code>Batch</code>.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>name</code></b>
+                  (<code><span title="str">str</span> | None</code>)
+              –
+              <div class="doc-md-description">
+                <p>Name of the stream. If None, will just be given a random UUID</p>
+              </div>
+            </li>
+            <li>
+              <b><code>image</code></b>
+                  (<code><span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Name or URL to docker image, already built</p>
+              </div>
+            </li>
+            <li>
+              <b><code>outdir</code></b>
+                  (<code><span title="pathlib.Path">Path</span> | <span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Directory for final generated reports</p>
+              </div>
+            </li>
+            <li>
+              <b><code>contdir</code></b>
+                  (<code><span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Working directory in the container</p>
+              </div>
+            </li>
+            <li>
+              <b><code>files</code></b>
+                  (<code><span title="list">list</span>[<span title="pathlib.Path">Path</span>]</code>)
+              –
+              <div class="doc-md-description">
+                <p>List of file paths, as generated by <code>Batch</code>'s file pattern and ID data</p>
+              </div>
+            </li>
+            <li>
+              <b><code>print_quarto</code></b>
+                  (<code><span title="bool">bool</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Whether to run Quarto in verbose mode, including its printout of each chunk rendered</p>
+              </div>
+            </li>
+            <li>
+              <b><code>print_snakemake</code></b>
+                  (<code><span title="bool">bool</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>Whether to run snakemake in verbose mode</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+              <details class="quote">
+                <summary>Source code in <code>src/eqcli/docker.py</code></summary>
+                <pre class="highlight"><code class="language-python">class DockerStream:
+    """Class to stream the output of a `docker run` command via the subprocess module. Each `Batch` object will create its own `DockerStream` object to run the appropriate snakemake rule within a docker container. This will then stream the container's output back to the `Batch`.
+
+    Parameters
+    ----------
+    name : str | None
+        Name of the stream. If None, will just be given a random UUID
+    image : str
+        Name or URL to docker image, already built
+    outdir : Path | str
+        Directory for final generated reports
+    contdir : str
+        Working directory in the container
+    files : list[Path]
+        List of file paths, as generated by `Batch`'s file pattern and ID data
+    print_quarto : bool
+        Whether to run Quarto in verbose mode, including its printout of each chunk rendered
+    print_snakemake : bool
+        Whether to run snakemake in verbose mode
+    """
+
+    def __init__(
+        self,
+        name: str | None,
+        image: str,
+        outdir: Path | str,
+        contdir: str,
+        files: list[Path],
+        print_quarto: bool,
+        print_snakemake: bool,
+    ):
+        if name is None:
+            self.name = f"docker-{uuid.uuid4()}"
+        else:
+            self.name = name
+        self.image = image
+        # self.files = files
+        self.files = [f"{contdir}/{fn}" for fn in files]
+        self.quiet_quarto = not print_quarto
+        self.snake_quiet_opt = self._make_snakeopt(print_snakemake)
+        self.volume = self._make_volume(outdir, contdir)
+        # self.stream = self.stream_docker()
+
+    def _make_snakeopt(self, print_snakemake):
+        if print_snakemake:
+            return "host"
+        else:
+            return "all"
+
+    def _make_volume(self, outdir, contdir):
+        outdir = Path(outdir)
+        # if contdir[0] != "/":
+        #     contdir = f"/{contdir}"
+        return f"{outdir.absolute()}:/project/{contdir}"
+
+    def stream_docker(self):
+        quiet_config = f"quiet={self.quiet_quarto}"
+        process = subprocess.Popen(
+            [
+                "docker",
+                "run",
+                # "--rm",
+                "-v",
+                self.volume,
+                self.image,
+                *self.files,
+                "--cores",
+                "all",
+                "--config",
+                quiet_config,
+                "--quiet",
+                self.snake_quiet_opt,
+                "--keep-going",
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            universal_newlines=True,
+        )
+        return process.stdout
+
+    def __str__(self) -&gt; str:
+        return f"""
+Docker container: {self.name}
+Image: '{self.image}'
+Volume: {self.volume}"""</code></pre>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../batch/" class="btn btn-neutral float-left" title="Batch"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../project/" class="btn btn-neutral float-right" title="Project">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/ct-data-haven/eqcli" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../batch/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../project/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
