@@ -11,22 +11,22 @@ jobs:
         runs-on: ubuntu-latest
         permissions:
             contents: write
+            pages: write
         steps:
             - name: Checkout
               uses: actions/checkout@v6
 
-            - name: Set up Python
-              uses: actions/setup-python@v6
+            - name: Install uv
+              uses: astral-sh/setup-uv@v7
               with:
-                python-version: '3.13'
+                python-version: "3.13"
+                activate-environment: true
 
-            - name: Upgrade pip
+            - name: Install dependencies
               run: |
-                python3 -m pip install --upgrade pip
-            
-            - name: Install mkdocs & deps
-              run: |
-                python3 -m pip install -r ./mkdocs-requirements.txt
+                uv sync --extra devs
+                uv build
+                uv pip install -r mkdocs-requirements.txt
 
             - name: Build docs
               run: |
