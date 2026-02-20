@@ -12,9 +12,36 @@ logger = logging.getLogger(__name__)
 
 
 class Batch:
-    """Assemble file names, prep writing process, deploy docker, return logs"""
+    """Class to manage a set of files to generate from a single list of locations or other IDs. A `Batch` can be one of several created by a `Project`, each representing an independent set of files and tracking its own count of successes and failures. Instances of this class are intended to be created by a `Project` rather than called directly.
 
-    # should have file names, args to pass to bash script, way to map files from container back to host
+    Parameters
+    ----------
+    name : str | None
+        Name of this batch. If None, the batch is named based on the `Project` with a batch number attached.
+    ids : Path | str | list[str]
+        Either a path to a file of IDs (i.e. location names) to be read in, or a list of IDs directly. If a file, it should be formatted with a single ID per line.
+    file_pattern : str
+        String to be used with `format()` to create desired report filenames. Include `"{id}"` as a placeholder for report IDs such as location names, such as `"{id}_equity_{year}.pdf"`, where `year` is a keyed value in the config file.
+    image : str
+        Name or URL of docker image, already built
+    config : dict
+        Snakemake config dictionary, as read from config.yml
+    outdir : Path | str
+        Directory for final generated reports
+    batchdir : str
+        Name of batch working directory
+    version : str | None
+        Text of version tag
+    print_quarto : bool, optional
+        Whether to run Quarto in verbose mode, including its printout of each chunk rendered, by default False
+    print_snakemake : bool, optional
+        Whether to run snakemake in verbose mode, by default False
+    comment : str | None, optional
+        Single character used to "comment" out lines in a file used in `ids`, by default "#"
+    """
+
+    mark_success = "+"
+    mark_fail = "x"
 
     def __init__(
         self,
@@ -32,6 +59,7 @@ class Batch:
         mark_success: str = "+",
         mark_fail: str = "x",
     ):
+
         if name is None:
             self.name = f"batch-{uuid.uuid4()}"
         else:

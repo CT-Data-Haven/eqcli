@@ -10,9 +10,40 @@ logger = logging.getLogger(__name__)
 
 
 class Project:
-    """Container for project attributes"""
+    """Object to hold overarching project attributes, including its Docker image, snakemake configs, version, and other options for how the container should be run. A `Project` will also create one or more `Batch` objects, representing different sets of files created as part of the project. For example, different batches might have their IDs come from different text files, and maintain their success tracking independently.
 
-    # instance attribute
+    Parameters
+    ----------
+    name : str | None
+        Project name
+    image : str
+        Name or URL to docker image, already built
+    config_file : Path | str
+        Path to snakemake config file
+    file_pattern : str
+        String to be used with `format()` to create desired report filenames. Include `"{id}"` as a placeholder for report IDs such as location names, such as `"{id}_equity_{year}.pdf"`, where `year` is a keyed value in the config file.
+    outdir : Path | str
+        Directory for final generated reports
+    rename : bool, optional
+        Whether generated reports should be renamed with the version tag appended, by default False
+    version : str | None, optional
+        Text of version tag, e.g. "0.1.0". If None, must supply `version_file`. If both are supplied, this takes precedence.
+    version_file : Path | str | None, optional
+        File that can be parsed to get a version tag, presumably either pyproject.toml for Python or DESCRIPTION for R. If None, must supply `version` directly
+    version_patt : str | None, optional
+        Regex pattern to use to extract version if `version_file='DESCRIPTION'`. If None, one is used by default that should get a properly formatted version.
+    clean : bool, optional
+        Whether to remove all files from `outdir` before generating new ones, by default False
+    clean_glob : str | None, optional
+        If `clean=True`, the glob to use to designate what files to remove. If None, all files in `outdir` are removed
+    print_quarto : bool, optional
+        Whether to run Quarto in verbose mode, including its printout of each chunk rendered, by default False
+    print_snakemake : bool, optional
+        Whether to run snakemake in verbose mode, by default False
+    repo : str | None, optional
+        GitHub repo of the project (currently unused), by default None
+    """
+
     def __init__(
         self,
         name: str | None,

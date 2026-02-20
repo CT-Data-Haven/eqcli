@@ -1,3 +1,5 @@
+"""Utility functions, mostly for working with filenames to parse information in snakemake workflows."""
+
 ### STRING UTILITIES--------------------
 ######################################
 from datetime import datetime

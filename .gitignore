@@ -1,5 +1,6 @@
 # Python-generated files
 __pycache__/
+**/__pycache__/
 *.py[oc]
 build/
 dist/
@@ -9,3 +10,4 @@ wheels/
 # Virtual environments
 .venv
 NOTES.md
+TODO.md

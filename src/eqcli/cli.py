@@ -94,20 +94,11 @@ def check_project_name(project_name, version_file) -> str:
 # common options between commands
 # from https://stackoverflow.com/a/50061489/5325862
 def common_opts(func):
-    func = click.option("--project-name", "-p", help="Name of project", type=str)(func)
     func = click.option(
-        "--outdir",
-        "-o",
-        help="Path to output directory on the host machine",
-        default=Path("to_distro"),
-        show_default=True,
-        type=click.Path(exists=False, file_okay=False, dir_okay=True),
-    )(func)
-    func = click.option(
-        "--version",
-        "-v",
-        help="Version if tagging; takes precedence over version-file",
-        type=str,
+        "--dry-run",
+        "-n",
+        is_flag=True,
+        help="Dry run: print expected operations but do nothing",
     )(func)
     func = click.option(
         "--version-file",
@@ -118,18 +109,26 @@ def common_opts(func):
         show_default=True,
     )(func)
     func = click.option(
-        "--dry-run",
-        "-n",
-        is_flag=True,
-        help="Dry run: print expected operations but do nothing",
+        "--version",
+        "-v",
+        help="Version if tagging; takes precedence over version-file",
+        type=str,
     )(func)
+    func = click.option(
+        "--outdir",
+        "-o",
+        help="Path to output directory on the host machine",
+        default=Path("to_distro"),
+        show_default=True,
+        type=click.Path(exists=False, file_okay=False, dir_okay=True),
+    )(func)
+    func = click.option("--project-name", "-p", help="Name of project", type=str)(func)
     return func
 
 
 ## APP ----
 ### BATCH WRITE ----
-@click.command()
-@common_opts
+@click.command(short_help="Write batches of reports using docker")
 @click.option(
     "--image",
     "-i",
@@ -157,7 +156,7 @@ def common_opts(func):
     "--locfile",
     "-f",
     # default="locations.txt",
-    help="Path to file of location names, one name per line",
+    help="Path to file of location names, one name per line. Can be given multiple times for multiple files.",
     type=click.Path(exists=True, dir_okay=False),
     multiple=True,
 )
@@ -165,7 +164,7 @@ def common_opts(func):
     "--locurl",
     "-u",
     # default=None,
-    help="URL to file of location names, one name per line",
+    help="URL to file of location names, one name per line. Can be given multiple times for multiple files.",
     type=URL(),
     multiple=True,
 )
@@ -189,6 +188,7 @@ def common_opts(func):
 @click.option(
     "--tag-rename", "-r", is_flag=True, help="Rename files based on version tag"
 )
+@common_opts
 def batch_write(
     project_name,
     image,
@@ -207,7 +207,13 @@ def batch_write(
     tag_rename,
     dry_run,
 ):
-    """Write a batch set of reports using docker"""
+    """Write one or more batches of reports using snakemake running in a docker container. This creates a [`Project`][eqcli.project.Project] instance which, in turn, creates [`Batch`][eqcli.batch.Batch] objects for each option supplied to `--locfile` and/or `--locurl`. Then reports are generated for each batch inside the docker container and written out to `outdir`. The `--print-quarto` and `--print-snakemake` flags will provide some feedback as the containers run, but the `Batch` objects will try to parse logs from their containers and print running counts of successful and failed attempts to write reports.
+
+    Todo
+    ----
+    - Reimplement progress bar for interactive use
+    - Develop more robust log parsing
+    """
     # if no name given, try to extract from project files
     project_name = check_project_name(project_name, version_file)
     logger.debug(f"project name: {project_name}")
@@ -250,13 +256,17 @@ def batch_write(
 
 ## RELEASE ----
 def release_opts(func):
+    func = click.option("--quiet", "-q", is_flag=True, help="Quiet output")(func)
     func = click.option(
-        "--id-regex",
-        "-i",
-        help="Regex pattern to extract IDs from filenames",
-        default="(\\w+)_equity",
-        type=str,
-        show_default=True,
+        "--xwalk-group-col", help="Column name to group by in the crosswalk", type=str
+    )(func)
+    func = click.option(
+        "--xwalk-join-col", help="Column name to join IDs to crosswalk", type=str
+    )(func)
+    func = click.option(
+        "--xwalk-path",
+        help="Path to crosswalk file for grouping reports, such as between towns and COGs",
+        type=click.Path(exists=True, file_okay=True, dir_okay=False),
     )(func)
     func = click.option(
         "--md-out",
@@ -267,24 +277,20 @@ def release_opts(func):
         show_default=True,
     )(func)
     func = click.option(
-        "--xwalk-path",
-        help="Path to crosswalk file for grouping reports, such as between towns and COGs",
-        type=click.Path(exists=True, file_okay=True, dir_okay=False),
+        "--id-regex",
+        "-I",
+        help="Regex pattern to extract IDs from filenames",
+        default="(\\w+)_equity",
+        type=str,
+        show_default=True,
     )(func)
-    func = click.option(
-        "--xwalk-join-col", help="Column name to join IDs to crosswalk", type=str
-    )(func)
-    func = click.option(
-        "--xwalk-group-col", help="Column name to group by in the crosswalk", type=str
-    )(func)
-    func = click.option("--quiet", "-q", is_flag=True, help="Quiet output")(func)
     return func
 
 
 ### RELEASE NOTES ----
-@click.command()
-@common_opts
+@click.command(short_help="Write notes for a release")
 @release_opts
+@common_opts
 def release_notes(
     project_name,
     outdir,
@@ -298,7 +304,7 @@ def release_notes(
     quiet,
     dry_run,
 ):
-    """Write notes for a release"""
+    """Write notes as a markdown table to serve as release notes. The table will include each report's ID as parsed based on `id_regex`, the path to that file, and the last time modified. This can then be uploaded as release notes on GitHub, either as is or after amending the markdown file manually."""
     verbose = ~quiet
     project_name = check_project_name(project_name, version_file)
     release = Release(
@@ -320,9 +326,17 @@ def release_notes(
 
 
 ### ZIP FILES ----
-@click.command()
-@common_opts
+@click.command(short_help="Zip files for a release")
 @release_opts
+@common_opts
+@click.option(
+    "--glob",
+    "-g",
+    type=str,
+    default="*.pdf",
+    show_default=True,
+    help="Glob to select files for zipping",
+)
 @click.option(
     "--zip-by-group", is_flag=True, help="Bundle files by grouping column to zip"
 )
@@ -346,10 +360,11 @@ def zip_release(
     xwalk_group_col,
     quiet,
     dry_run,
+    glob,
     zip_by_group,
     zipdir,
 ):
-    """Zip files for a release"""
+    """Zip all the files from `outdir`, optionally matching by a glob string. If no glob is given, will match all PDF files in the output directory. Use a crosswalk and the `--zip-by-group` flag in order to bundle files into some group before zipping."""
     verbose = ~quiet
     project_name = check_project_name(project_name, version_file)
     release = Release(
@@ -362,6 +377,7 @@ def zip_release(
         xwalk_path=xwalk_path,
         xwalk_join_on=xwalk_join_col,
         xwalk_group_col=xwalk_group_col,
+        glob=glob,
     )
     if dry_run:
         print(release)

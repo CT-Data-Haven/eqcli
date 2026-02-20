@@ -11,6 +11,34 @@ logger = logging.getLogger(__name__)
 
 
 class Release:
+    """Class representing a public release of report output, as in a GitHub release. Its main tasks are generating tables of IDs and associated filenames to be uploaded as release notes, and packaging files into zipped archives.
+
+    Parameters
+    ----------
+    name : str
+        Name of release
+    outdir : Path | str
+        Directory for final generated reports
+    version : str | None, optional
+    Text of version tag, e.g. "0.1.0". If None, must supply `version_file`. If both are supplied, this takes precedence.
+    version_file : Path | str | None, optional
+        File that can be parsed to get a version tag, presumably either pyproject.toml for Python or DESCRIPTION for R. If None, must supply `version` directly
+    version_patt : str | None, optional
+        Regex pattern to use to extract version if `version_file='DESCRIPTION'`. If None, one is used by default that should get a properly formatted version.
+    id_regex : str | re.Pattern, optional
+        Regex pattern to extract IDs out of filenames, kind of the reverse of `Project`'s file_pattern argument, by default `r"(\w+)_equity"`
+    md_out : Path | str, optional
+        Path to write out notes in a markdown file, by default "release-notes.md"
+    xwalk_path : Path | str | None, optional
+        If files should be grouped in the markdown table and/or in zip files, a CSV crosswalk can be given with IDs of reports and their groups (e.g. reports done for hospital service areas, packaged up by hospital system). If None, this is skipped.
+    xwalk_join_on : str | None, optional
+        Name of column in the crosswalk to join with IDs, by default None
+    xwalk_group_col : str | None, optional
+        Name of column in the crosswalk that contains groups, by default None
+    glob : str | None, optional
+        Glob used to identify reports in the output directory, by default "*.pdf". If None, all files will be used.
+    """
+
     def __init__(
         self,
         name: str,
