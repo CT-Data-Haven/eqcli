@@ -1,0 +1,6 @@
+mkdocs
+mkdocs-autorefs
+mkdocs-click
+mkdocstrings
+mkdocstrings-python
+pymdown-extensions
