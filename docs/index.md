@@ -14,7 +14,7 @@ pip install git+https://github.com/camille-s/eqcli
 
 ## Getting started
 
-The CLI is built with click, which provides help pages.
+The [CLI](./cli) is built with click, which provides help pages.
 
 ```bash
 > eqcli --help

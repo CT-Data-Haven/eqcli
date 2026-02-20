@@ -1,0 +1,22 @@
+site_name: eqcli
+theme: readthedocs
+
+repo_url: https://github.com/ct-data-haven/eqcli
+site_url: https://ct-data-haven.github.io/eqcli
+
+markdown_extensions: 
+  - mkdocs-click
+  - pymdownx.highlight:
+      default_lang: python
+
+plugins: 
+  - search
+  - autorefs
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: numpy
+    
+

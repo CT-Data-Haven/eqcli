@@ -34,5 +34,10 @@ major_version_zero = true
 
 [dependency-groups]
 dev = [
+    "mkdocs>=1.6.1",
+    "mkdocs-click>=0.9.0",
+    "mkdocstrings[python]>=1.0.3",
+    "pre-commit>=4.5.1",
+    "pymdown-extensions>=10.21",
     "ruff>=0.15.1",
 ]
