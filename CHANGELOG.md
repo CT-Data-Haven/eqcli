@@ -1,3 +1,9 @@
+## 0.3.2 (2026-02-25)
+
+### Fix
+
+- **cli**: take out default version-file value; fixes #1
+
 ## 0.3.1 (2026-02-24)
 
 ### Fix
