@@ -1,3 +1,9 @@
+## 0.3.1 (2026-02-24)
+
+### Fix
+
+- **project**: better file_pattern handling within Project rather than Batch
+
 ## 0.3.0 (2026-02-24)
 
 ### Feat
