@@ -49,7 +49,7 @@ class Batch:
         ids: Path | str | list[str],
         file_pattern: str,
         image: str,
-        config: dict,
+        # config: dict,
         outdir: Path | str,
         batchdir: str,
         version: str | None,
@@ -70,7 +70,7 @@ class Batch:
         self.version = version
         self.print_quarto = print_quarto
         self.print_snakemake = print_snakemake
-        self.config = config
+        # self.config = config
         self.tries = 0
         self.failures = 0
         self.successes = 0
@@ -86,19 +86,19 @@ class Batch:
         else:
             self.ids = read_commented(ids, comment)
 
-        self.files = self._create_file_names(file_pattern, to_snakecase=True, **config)
+        self.files = self._create_file_names(file_pattern, to_snakecase=True)
         self.docker = self._prep_container()
 
     ## FILES ----
     def _create_file_names(
-        self, file_pattern: str, to_snakecase: bool = True, **kwargs
+        self, file_pattern: str, to_snakecase: bool = True
     ) -> list[Path]:
         """Create file basenames based on a template literal"""
         if to_snakecase:
             ids = snakecase(self.ids)
         else:
             ids = self.ids
-        filenames = [file_pattern.format(**kwargs, id=id) for id in ids]
+        filenames = [file_pattern.format(id=id) for id in ids]
         # return [Path(self.outdir) / fn for fn in filenames]
         return [Path(fn) for fn in filenames]
 

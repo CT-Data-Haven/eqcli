@@ -64,10 +64,11 @@ class Project:
         self.name = name
         self.repo = repo
         self.image = image
-        self.file_pattern = file_pattern
+        # self.file_pattern = file_pattern
         self.outdir = Path(outdir)
         self.rename = rename
         self.config = self._read_config(config_file)
+        self.file_pattern = self._file_patt_fill(file_pattern)
         self.version = check_version(version, version_file, version_patt)
         self.print_quarto = print_quarto
         self.print_snakemake = print_snakemake
@@ -124,6 +125,10 @@ class Project:
         return config
 
     ## MAKE & DEPLOY BATCHES ----
+    def _file_patt_fill(self, patt: str) -> str:
+        """Fill in file_pattern templates based on config, so batch can just handle IDs"""
+        return patt.format(**self.config, id="{id}")
+
     def _create_batch(
         self, batch_name: str, ids: Path | str | list[str], rename: bool
     ) -> Batch:
@@ -134,7 +139,6 @@ class Project:
             ids=ids,
             file_pattern=self.file_pattern,
             image=self.image,
-            config=self.config,
             outdir=self.outdir,
             batchdir=self.config["batch_dir"],
             version=batch_version,
@@ -173,8 +177,9 @@ class Project:
     ## BASIC METHODS ----
     def __str__(self) -> str:
         return f"""
-Project: `{self.name}` version {self.version}
+Project: {self.name} version {self.version}
 Docker image: '{self.image}'
+File pattern: '{self.file_pattern}'
 Batches: {len(self.batches)}"""
 
     def __iter__(self):
