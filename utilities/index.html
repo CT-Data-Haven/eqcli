@@ -750,7 +750,7 @@
 
     <div class="doc doc-contents ">
 
-        <p>Read lines in a file, optionally omitting commented lines</p>
+        <p>Read lines in a file (local or a URL), optionally omitting commented lines</p>
 
 
 <table class="field-list">
@@ -836,7 +836,7 @@
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/eqcli/utils.py</code></summary>
               <pre class="highlight"><code class="language-python">def read_commented(path: str | Path, comment: str | None = "#") -&gt; list[str]:
-    """Read lines in a file, optionally omitting commented lines
+    """Read lines in a file (local or a URL), optionally omitting commented lines
 
     Parameters
     ----------
@@ -857,8 +857,13 @@
     """
     if comment is not None and len(comment) != 1:
         raise ValueError("'comment' should be a string of length 1")
-    with open(path, "r") as f:
-        lines = f.read().splitlines()
+    if _is_url(path):
+        with urlopen(str(path)) as f:
+            lines = f.read().splitlines()
+            lines = [line.decode() for line in lines]
+    else:
+        with open(path, "r") as f:
+            lines = f.read().splitlines()
     if comment is None:
         return lines
     else:

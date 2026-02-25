@@ -109,32 +109,31 @@
 <pre><code class="language-text">eqcli batch-write [OPTIONS]
 </code></pre>
 <p><strong>Options:</strong></p>
-<pre><code class="language-text">  -i, --image TEXT         Name or URL of docker image  [default: ghcr.io/ct-
-                           data-haven/regions:latest]
-  -c, --config-file FILE   Path to snakemake config yaml file  [default:
-                           config.yml]
-  -t, --file-pattern TEXT  Template literal string to create filenames; can
-                           use values from config-file  [default:
-                           {id}_equity_{doc_yr}.pdf]
-  -f, --locfile FILE       Path to file of location names, one name per line.
-                           Can be given multiple times for multiple files.
-  -u, --locurl URL         URL to file of location names, one name per line.
-                           Can be given multiple times for multiple files.
-  -X, --clean              Clean output directory before writing new files
-  -G, --clean-glob TEXT    Glob to use for deleting files
-  -l, --print-logs         Print logs from docker run
-  -q, --print-quarto       Print logs from quarto
-  -s, --print-snakemake    Print logs from snakemake
-  -r, --tag-rename         Rename files based on version tag
-  -p, --project-name TEXT  Name of project
-  -o, --outdir DIRECTORY   Path to output directory on the host machine
-                           [default: to_distro]
-  -v, --version TEXT       Version if tagging; takes precedence over version-
-                           file
-  -V, --version-file FILE  Path to version file if tagging  [default:
-                           pyproject.toml]
-  -n, --dry-run            Dry run: print expected operations but do nothing
-  --help                   Show this message and exit.
+<pre><code class="language-text">  -i, --image TEXT           Name or URL of docker image  [default:
+                             ghcr.io/ct-data-haven/regions:latest]
+  -c, --config-file FILE     Path to snakemake config yaml file  [default:
+                             config.yml]
+  -t, --file-pattern TEXT    Template literal string to create filenames; can
+                             use values from config-file  [default:
+                             {id}_equity_{doc_yr}.pdf]
+  -f, --locations-file TEXT  Path or URL to file of location names, one name
+                             per line. Can be given multiple times for
+                             multiple files.
+  -X, --clean                Clean output directory before writing new files
+  -G, --clean-glob TEXT      Glob to use for deleting files
+  -l, --print-logs           Print logs from docker run
+  -q, --print-quarto         Print logs from quarto
+  -s, --print-snakemake      Print logs from snakemake
+  -r, --tag-rename           Rename files based on version tag
+  -p, --project-name TEXT    Name of project
+  -o, --outdir DIRECTORY     Path to output directory on the host machine
+                             [default: to_distro]
+  -v, --version TEXT         Version if tagging; takes precedence over
+                             version-file
+  -V, --version-file FILE    Path to version file if tagging  [default:
+                             pyproject.toml]
+  -n, --dry-run              Dry run: print expected operations but do nothing
+  --help                     Show this message and exit.
 </code></pre>
 <h2 id="release-notes">release-notes</h2>
 <p>Write notes as a markdown table to serve as release notes. The table will include each report's ID as parsed based on <code>id_regex</code>, the path to that file, and the last time modified. This can then be uploaded as release notes on GitHub, either as is or after amending the markdown file manually.</p>
