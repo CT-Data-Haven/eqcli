@@ -1,3 +1,13 @@
+## 0.3.0 (2026-02-24)
+
+### Feat
+
+- **cli**: consolidate locurl and locfile options into locations-file
+
+### Fix
+
+- **utils**: revise read_commented to handle URLs
+
 ## 0.2.0 (2026-02-18)
 
 ### Feat

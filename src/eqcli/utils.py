@@ -2,7 +2,6 @@
 
 ### STRING UTILITIES--------------------
 ######################################
-import urllib
 from urllib.parse import urlparse
 from urllib.request import urlopen
 from datetime import datetime
@@ -145,7 +144,7 @@ def _is_url(path: str | Path) -> bool:
 
 
 def read_commented(path: str | Path, comment: str | None = "#") -> list[str]:
-    """Read lines in a file, optionally omitting commented lines
+    """Read lines in a file (local or a URL), optionally omitting commented lines
 
     Parameters
     ----------
@@ -169,7 +168,7 @@ def read_commented(path: str | Path, comment: str | None = "#") -> list[str]:
     if _is_url(path):
         with urlopen(str(path)) as f:
             lines = f.read().splitlines()
-            lines = [l.decode() for l in lines]
+            lines = [line.decode() for line in lines]
     else:
         with open(path, "r") as f:
             lines = f.read().splitlines()

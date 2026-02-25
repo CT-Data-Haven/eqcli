@@ -1,10 +1,10 @@
-from eqcli.release import Release
-from eqcli.utils import read_proj_name
-from pathlib import Path
-import click
-from urllib.parse import urlparse
-from eqcli.project import Project
 import logging
+import click
+from pathlib import Path
+from urllib.parse import urlparse
+from eqcli.utils import read_proj_name
+from eqcli.release import Release
+from eqcli.project import Project
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
