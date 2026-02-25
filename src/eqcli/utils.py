@@ -2,6 +2,9 @@
 
 ### STRING UTILITIES--------------------
 ######################################
+import urllib
+from urllib.parse import urlparse
+from urllib.request import urlopen
 from datetime import datetime
 import tomllib
 import re
@@ -136,6 +139,11 @@ def y2k(x: str, sep: str = "_") -> str:
 ######################################
 
 
+# check url vs file
+def _is_url(path: str | Path) -> bool:
+    return urlparse(str(path)).scheme in ["http", "https"]
+
+
 def read_commented(path: str | Path, comment: str | None = "#") -> list[str]:
     """Read lines in a file, optionally omitting commented lines
 
@@ -158,8 +166,13 @@ def read_commented(path: str | Path, comment: str | None = "#") -> list[str]:
     """
     if comment is not None and len(comment) != 1:
         raise ValueError("'comment' should be a string of length 1")
-    with open(path, "r") as f:
-        lines = f.read().splitlines()
+    if _is_url(path):
+        with urlopen(str(path)) as f:
+            lines = f.read().splitlines()
+            lines = [l.decode() for l in lines]
+    else:
+        with open(path, "r") as f:
+            lines = f.read().splitlines()
     if comment is None:
         return lines
     else:
