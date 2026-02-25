@@ -153,19 +153,11 @@ def common_opts(func):
     type=str,
 )
 @click.option(
-    "--locfile",
+    "--locations-file",
     "-f",
     # default="locations.txt",
-    help="Path to file of location names, one name per line. Can be given multiple times for multiple files.",
-    type=click.Path(exists=True, dir_okay=False),
-    multiple=True,
-)
-@click.option(
-    "--locurl",
-    "-u",
-    # default=None,
-    help="URL to file of location names, one name per line. Can be given multiple times for multiple files.",
-    type=URL(),
+    help="Path or URL to file of location names, one name per line. Can be given multiple times for multiple files.",
+    type=str,
     multiple=True,
 )
 @click.option(
@@ -197,8 +189,9 @@ def batch_write(
     outdir,
     version,
     version_file,
-    locfile,
-    locurl,
+    # locfile,
+    # locurl,
+    locations_file,
     clean,
     clean_glob,
     print_logs,
@@ -219,7 +212,12 @@ def batch_write(
     logger.debug(f"project name: {project_name}")
     # combine all location files / urls
     location_lookups = check_nargs(
-        "locfile or locurl", locfile, locurl, single_val=False, flatten=True
+        # "locfile or locurl",
+        # locfile, locurl,
+        "locations-file",
+        locations_file,
+        single_val=False,
+        flatten=True,
     )
     # location_lookups = locfile
     logger.debug(location_lookups)
