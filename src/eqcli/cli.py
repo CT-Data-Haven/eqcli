@@ -104,7 +104,7 @@ def common_opts(func):
         "--version-file",
         "-V",
         help="Path to version file if tagging",
-        default=Path("pyproject.toml"),
+        # default=Path("pyproject.toml"),
         type=click.Path(exists=True, file_okay=True, dir_okay=False),
         show_default=True,
     )(func)
