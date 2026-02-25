@@ -1,5 +1,11 @@
 # eqcli
 
+<!-- badges: start -->
+
+![GitHub Tag](https://img.shields.io/github/v/tag/ct-data-haven/eqcli?style=flat-square)
+
+<!-- badges: end -->
+
 This is a minimal package of utility functions plus a CLI for generating batches of [equity reports](https://ctdatahaven.org/report/connecticut-town-equity-reports/) at DataHaven, plus prepping notes and zip files for release and distro. 
 
 The equity reports project requires generating as many as 200 PDFs, 40+ pages each, of extensive narrative, charts, maps, tables, and notes. All of these moving pieces are orchestrated very precisely across R, Python, and bash, running in a custom Docker container with a snakemake workflow. This is tested locally, then deployed with GitHub Actions. Over the years, the helper Python scripts I've put together for this have evolved into a small yet sprawling CLI, which I am now spinning off into a proper package of its own.
@@ -9,7 +15,7 @@ The equity reports project requires generating as many as 200 PDFs, 40+ pages ea
 Until this is on PyPI or similar, install with `pip` directly from GitHub:
 
 ```bash
-pip install git+https://github.com/camille-s/eqcli
+pip install git+https://github.com/ct-data-haven/eqcli
 ```
 
 ## Getting started
